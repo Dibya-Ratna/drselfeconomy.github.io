@@ -279,4 +279,33 @@
         const resetDisplay = document.getElementById('reset-clock');
         const guildDisplay = document.getElementById('guild-clock');
         const now = new Date();
+                let rTarget = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 1, 8, 0);
+        let gTarget = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 8, 0);
+
+        if (now > rTarget) rTarget.setDate(rTarget.getDate() + 1);
+        if (now > gTarget) gTarget.setDate(gTarget.getDate() + 1);
+
+        function formatDiff(target) {
+            let diff = target - now;
+            let h = Math.floor(diff / (1000 * 60 * 60));
+            let m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            let s = Math.floor((diff % (1000 * 60)) / 1000);
+            return `${h < 10 ? '0'+h : h}:${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+        }
+
+        resetDisplay.textContent = formatDiff(rTarget);
+        guildDisplay.textContent = formatDiff(gTarget);
+    }
+
+    setInterval(runKioskClocks, 1000);
+    runKioskClocks();
+</script>
+
+<script src="kiosk_bridge.js"></script>
+
+</body>
+</html>
+
+
+        
 
