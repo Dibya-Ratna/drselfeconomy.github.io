@@ -20,13 +20,16 @@ class DibyaRatnaInterfaceBridge {
 
         sectorButtons.forEach((button) => {
             button.addEventListener('click', (event) => {
+                // Clear active states across the layout cards
                 sectorButtons.forEach(btn => btn.style.borderColor = 'var(--border-color)');
                 
+                // Highlight the user's active choice
                 const targetButton = event.currentTarget;
                 targetButton.style.borderColor = 'var(--saffron-gold)';
                 
-                const fullText = targetButton.querySelector('.sector-title span').textContent;
-                this.selectedSector = fullText.split('/')[1]?.trim().toUpperCase() || fullText.trim().toUpperCase();
+                // Pure string clean fix to bypass array separation bugs
+                const rawText = targetButton.querySelector('.sector-title span').textContent;
+                this.selectedSector = rawText.replace(/[\n\t]/g, '').trim();
                 
                 console.log(`[SELECTION] Target sector isolated: ${this.selectedSector}`);
             });
@@ -52,7 +55,7 @@ class DibyaRatnaInterfaceBridge {
     }
 
     updateKioskInterfaceDisplay(cost, returnEquity) {
-        alert(`[SUCCESS] Pre-Order logged for ${this.selectedSector}!\nCost: ${cost} GNH Credits\n10% Mukti Equity Deposited: +${returnEquity} Credits.`);
+        alert(`[SUCCESS] Pre-Order logged for: ${this.selectedSector}\nCost: ${cost} GNH Credits\n10% Mukti Equity Deposited: +${returnEquity} Credits.`);
     }
 }
 
