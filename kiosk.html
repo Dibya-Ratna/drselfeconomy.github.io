@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DibyaRatna Community Kiosk | Node 1024</title>
+    <style>
+        :root {
+            --bg-dark: #0a0c10;
+            --card-bg: #121620;
+            --border-color: #242b35;
+            --text-light: #f1f3f5;
+            --text-muted: #8a94a6;
+            --saffron-gold: #ff9800;
+            --royal-purple: #7b1fa2;
+            --liberation-blue: #1976d2;
+            --equilibrium-green: #388e3c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .kiosk-frame {
+            width: 100%;
+            max-width: 1100px;
+            background-color: #12141a;
+            border: 4px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+        }
+
+        /* Top Status Dashboard */
+        .kiosk-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .node-info h1 {
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .node-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .system-clocks {
+            display: flex;
+            gap: 20px;
+        }
+
+        .clock-widget {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .clock-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .clock-time {
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: monospace;
+            color: var(--saffron-gold);
+        }
+
+        /* Master Grid Layout */
+        .kiosk-body {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        /* 8 Pillars Pre-Order Matrix */
+        .sectors-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .sector-button {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .sector-button:hover {
+            border-color: var(--saffron-gold);
+            transform: scale(1.02);
+        }
+
+        .sector-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .sector-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Right Sidebar Panel (Ledger & Counters) */
+        .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .panel-box {
+            background-color: #161c26;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .panel-box h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            color: var(--liberation-blue);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .stat-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .stat-val {
+            font-weight: 700;
+            font-family: monospace;
+        }
+
+        .btn-submit {
+            background-color: var(--equilibrium-green);
+            color: var(--text-light);
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s ease;
+            box-shadow: 0 4px 15px rgba(56, 142, 60, 0.3);
+        }
+
+        .btn-submit:hover {
+            background-color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+
+<div class="kiosk-frame">
+    <!-- Kiosk Top Control Panel -->
+    <div class="kiosk-header">
+        <div class="node-info">
+            <h1>DibyaRatna Terminal</h1>
+            <p>Node Blueprint 1024 | Manifest Members: 1,023 | Purna State: 0</p>
+        </div>
+        <div class="system-clocks">
+            <div class="clock-widget">
+                <div class="clock-label">Reset Frame</div>
+                <div class="clock-time" id="reset-clock" style="color: var(--liberation-blue);">01:08:00</div>
+            </div>
+            <div class="clock-widget">
+                <div class="clock-label">Guild Allocation</div>
+                <div class="clock-time" id="guild-clock">10:08:00</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Workspace -->
+    <div class="kiosk-body">
+        <!-- 8 Sectors Selection Matrix -->
+        <div>
+            <h2 style="margin-bottom: 15px; font-size: 1.2rem; text-transform: uppercase; color: var(--text-muted);">Select Sector to Log Pre-Order</h2>
+            <div class="sectors-grid">
+                <button class="sector-button">
+                    <div class="sector-title"><span>गाँस / Food</span><span style="color: var(--equilibrium-green);">108%</span></div>
+                    <div class="sector-desc">Log local, fresh organic nutritional demand tracks.</div>
+                </button>
+                <button class="sector-button">
+                    <div class="sector-title"><span>बास / Shelter</span><span>Tier 4</span></div>
+                    <div class="sector-desc">Submit ecological community infrastructure housing requirements.</div>
+                </button>
+                <button class="sector-button">
+                    <div class="sector-title"><span>कपास / Clothes</span><span>Tier 5</span></div>
+                    <div class="sector-desc">Request textile resources from lifecycle to ceremony apparel.</div>
+                </button>
+                <button class="sector-button">
+                    <div class="sector-title"><span>ज्ञान / Knowledge</span><span>Tier 6</span></div>
+                    <div class="sector-desc">Access open data courses and cognitive skill coordination.</div>
+                </button>
+                <button class="sector-button">
+                    <div class="sector-title"><span>स्वास्थ्य / Health</span><span>Tier 8</span></div>
+                    <div class="sector-desc">Engage local preventive diagnosis and medical routing.</div>
+                </button>
+                <button class="sector-button">
+                    <div class="sector-title"><span>यातायात / Transit</span><span>Tier 9</span></div>
+                    <div class="sector-desc">Schedule regional vehicle options avoiding urban congestion.</div>
+                </button>
+                <button class="sector-button">
+                    <div class="sector-title"><span>सुरक्षा / Security</span><span>Tier 10</span></div>
+                    <div class="sector-desc">Verify local boundary monitoring and protective alerts.</div>
+                </button>
+                <button class="sector-button">
+                    <div class="sector-title"><span>ऊर्जा / Energy</span><span>Tier 11</span></div>
+                    <div class="sector-desc">Review thermodynamic consumption metrics across networks.</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Sidebar Counters and Ledger Monitoring -->
+        <div class="side-panel">
+            <div class="panel-box">
+                <h3>Active Node State</h3>
+                <div class="stat-line"><span>Active Human Units:</span><span class="stat-val" style="color: var(--saffron-gold);">1,023</span></div>
+                <div class="stat-line"><span>System Balance Root:</span><span class="stat-val" style="color: var(--equilibrium-green);">0 (Purna)</span></div>
+                <div class="stat-line"><span>Net Energy Leakage:</span><span class="stat-val" style="color: var(--primary-red);">0.00%</span></div>
+            </div>
+
+            <div class="panel-box">
+                <h3>24hr Transaction Feed</h3>
+                <div class="stat-line"><span>Tax Pool Collected:</span><span class="stat-val">3,900 cr</span></div>
+                <div class="stat-line"><span>GNH Share Disbursed:</span><span class="stat-val">325 cr</span></div>
+                <div class="stat-line"><span>Mukti Return Yield:</span><span class="stat-val" style="color: var(--liberation-blue);">10% Flat</span></div>
+            </div>
+
+            <button class="btn-submit">Confirm Transaction</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function runKioskClocks() {
+        const resetDisplay = document.getElementById('reset-clock');
+        const guildDisplay = document.getElementById('guild-clock');
+        const now = new Date();
+
