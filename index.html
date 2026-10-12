@@ -5,20 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Theory of Zero — DR SelfEconomy</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 40px; }
-        .container { max-width: 900px; margin: auto; background: #1e293b; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-        h1 { color: #38bdf8; border-bottom: 2px solid #334155; padding-bottom: 15px; }
-        .sectors { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px; }
-        .sector-card { background: #334155; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; color: #38bdf8; }
-        p { line-height: 1.6; color: #cbd5e1; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 40px 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: auto; background: #1e293b; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { color: #38bdf8; font-size: 2.5rem; margin-bottom: 10px; border-bottom: 2px solid #334155; padding-bottom: 20px; }
+        h2 { color: #38bdf8; margin-top: 40px; }
+        p { color: #cbd5e1; font-size: 1.1rem; }
+        .tagline { font-size: 1.25rem; color: #94a3b8; margin-bottom: 30px; font-weight: 300; }
+        .sectors { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .sector-card { background: #334155; padding: 20px; border-radius: 10px; text-align: center; font-weight: bold; color: #38bdf8; border: 1px solid #475569; transition: transform 0.2s; }
+        .sector-card:hover { transform: translateY(-3px); border-color: #38bdf8; }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        .feature-box { background: #0f172a; padding: 20px; border-radius: 10px; border-left: 4px solid #38bdf8; }
+        .feature-box h3 { margin-top: 0; color: #f8fafc; }
+        footer { margin-top: 50px; text-align: center; color: #64748b; font-size: 0.9rem; border-top: 1px solid #334155; padding-top: 20px; }
+        a { color: #38bdf8; text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Theory of Zero — DR SelfEconomy</h1>
-        <p>Welcome to the official architecture portal for the DR SelfEconomy macro-economic framework. Operating on resource-backed cybernetic principles to eliminate systemic scarcity.</p>
+        <div class="tagline">Operating on resource-backed cybernetic principles to eliminate systemic scarcity.</div>
         
+        <p>Welcome to the official architecture portal for the DR SelfEconomy macro-economic framework. The Theory of Zero is a mathematical and architectural model designed to transition municipal systems toward absolute resource equilibrium, decoupling survival from artificial monetary scarcity.</p>
+
         <h2>Core Economic Sectors</h2>
+        <p>The economy is structured around eight foundational pillars required to sustain human civilization sustainably:</p>
         <div class="sectors">
             <div class="sector-card">Food</div>
             <div class="sector-card">Shelter</div>
@@ -29,6 +41,26 @@
             <div class="sector-card">Security</div>
             <div class="sector-card">Energy</div>
         </div>
+
+        <h2>Open-Source Architecture & Verification</h2>
+        <div class="features">
+            <div class="feature-box">
+                <h3>Agent Simulation</h3>
+                <p>Modeled across 100,000 decentralized nodes using Python Mesa simulations to test multi-sector resource balancing.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Smart Contracts</h3>
+                <p>Enforced via decentralized tribunal engines (<code>Tire1200TribunalEngine.sol</code>) managing the 12-Tire framework.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Zero-Knowledge Privacy</h3>
+                <p>Private baseline resource consumption verification implemented using Circom ZK circuits (<code>ConsumptionVerifier.circom</code>).</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>DR SelfEconomy Project &bull; Open Source Macroeconomic Architecture &bull; <a href="https://github.com/Dibya-Ratna/drselfeconomy.github.io" target="_blank">View GitHub Repository</a></p>
+        </footer>
     </div>
 </body>
 </html>
