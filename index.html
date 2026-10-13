@@ -4,63 +4,384 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Theory of Zero — DR SelfEconomy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 40px 20px; line-height: 1.6; }
-        .container { max-width: 1000px; margin: auto; background: #1e293b; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { color: #38bdf8; font-size: 2.5rem; margin-bottom: 10px; border-bottom: 2px solid #334155; padding-bottom: 20px; }
-        h2 { color: #38bdf8; margin-top: 40px; }
-        p { color: #cbd5e1; font-size: 1.1rem; }
-        .tagline { font-size: 1.25rem; color: #94a3b8; margin-bottom: 30px; font-weight: 300; }
-        .sectors { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .sector-card { background: #334155; padding: 20px; border-radius: 10px; text-align: center; font-weight: bold; color: #38bdf8; border: 1px solid #475569; transition: transform 0.2s, background 0.2s; display: block; text-decoration: none; }
-        .sector-card:hover { transform: translateY(-3px); border-color: #38bdf8; background: #3b82f6; color: #ffffff; }
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
-        .feature-box { background: #0f172a; padding: 20px; border-radius: 10px; border-left: 4px solid #38bdf8; }
-        .feature-box h3 { margin-top: 0; color: #f8fafc; }
-        footer { margin-top: 50px; text-align: center; color: #64748b; font-size: 0.9rem; border-top: 1px solid #334155; padding-top: 20px; }
-        a { color: #38bdf8; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        body { background-color: #0f172a; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
+        .wheel-container { position: relative; width: 100%; max-width: 520px; aspect-ratio: 1; margin: auto; }
+        .segment { transition: all 0.2s ease; cursor: pointer; }
+        .segment:hover { filter: brightness(1.2); }
+        .segment.active { stroke: #38bdf8; stroke-width: 3px; filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.8)); }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Theory of Zero — DR SelfEconomy</h1>
-        <div class="tagline">Operating on resource-backed cybernetic principles to eliminate systemic scarcity.</div>
+<body class="min-h-screen p-4 md:p-8 flex flex-col justify-between">
+
+    <!-- Header -->
+    <header class="max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between border-b border-slate-800 pb-4 mb-6">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center overflow-hidden">
+                <span class="text-cyan-400 font-bold text-lg">R</span>
+            </div>
+            <h1 class="text-2xl font-bold tracking-tight text-cyan-400">Theory of Zero <span class="text-slate-400 font-normal text-lg">— DR SelfEconomy</span></h1>
+        </div>
+        <nav class="flex gap-6 text-sm text-slate-400 mt-3 sm:mt-0">
+            <a href="https://github.com/Dibya-Ratna/drselfeconomy.github.io" target="_blank" class="hover:text-cyan-400 transition">GitHub Repository</a>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         
-        <p>Welcome to the official architecture portal for the DR SelfEconomy macro-economic framework. The Theory of Zero is a mathematical and architectural model designed to transition municipal systems toward absolute resource equilibrium, decoupling survival from artificial monetary scarcity.</p>
+        <!-- Left Column: Interactive Wheel -->
+        <div class="lg:col-span-7 flex flex-col items-center justify-center bg-slate-900/60 p-6 rounded-2xl border border-slate-800 shadow-xl">
+            <div class="text-center mb-4">
+                <h2 class="text-lg font-semibold text-slate-200">Interactive 12-Tire & 8-Sector Framework</h2>
+                <p class="text-xs text-slate-400">Click any Tire or Sector to inspect architectural specifications.</p>
+            </div>
 
-        <h2>Core Economic Sectors</h2>
-        <p>Click on any sector below to explore its specific architectural model and resource-balancing mechanics:</p>
-        <div class="sectors">
-            <a href="sector.html?name=Food" class="sector-card">Food</a>
-            <a href="sector.html?name=Shelter" class="sector-card">Shelter</a>
-            <a href="sector.html?name=Clothes" class="sector-card">Clothes</a>
-            <a href="sector.html?name=Knowledge" class="sector-card">Knowledge</a>
-            <a href="sector.html?name=Health" class="sector-card">Health</a>
-            <a href="sector.html?name=Transportation" class="sector-card">Transportation</a>
-            <a href="sector.html?name=Security" class="sector-card">Security</a>
-            <a href="sector.html?name=Energy" class="sector-card">Energy</a>
+            <!-- SVG Dual Ring Wheel -->
+            <div class="wheel-container">
+                <svg viewBox="0 0 500 500" class="w-full h-full drop-shadow-2xl">
+                    <defs>
+                        <radialGradient id="hub-grad" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#1e293b"/>
+                            <stop offset="100%" stop-color="#0f172a"/>
+                        </radialGradient>
+                    </defs>
+
+                    <!-- Outer Ring: 12 Tires (Clockwise starting from top: Tire 1200, Tire 1100 ... Tire 100) -->
+                    <!-- Tire 1200 (Top) -->
+                    <path id="tire-1200" class="segment" d="M 250,10 A 240,240 0 0,1 370,34 L 325,108 A 160,160 0 0,0 250,90 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 1200', 'tire')"/>
+                    <text x="310" y="65" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(30, 310, 65)">Tire 1200</text>
+
+                    <!-- Tire 1100 -->
+                    <path id="tire-1100" class="segment" d="M 370,34 A 240,240 0 0,1 460,130 L 377,169 A 160,160 0 0,0 325,108 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 1100', 'tire')"/>
+                    <text x="420" y="105" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(60, 420, 105)">Tire 1100</text>
+
+                    <!-- Tire 1000 -->
+                    <path id="tire-1000" class="segment" d="M 460,130 A 240,240 0 0,1 490,250 L 410,250 A 160,160 0 0,0 377,169 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 1000', 'tire')"/>
+                    <text x="450" y="195" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(90, 450, 195)">Tire 1000</text>
+
+                    <!-- Tire 900 -->
+                    <path id="tire-900" class="segment" d="M 490,250 A 240,240 0 0,1 460,370 L 377,331 A 160,160 0 0,0 410,250 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 900', 'tire')"/>
+                    <text x="440" y="310" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(120, 440, 310)">Tire 900</text>
+
+                    <!-- Tire 800 -->
+                    <path id="tire-800" class="segment" d="M 460,370 A 240,240 0 0,1 370,466 L 325,392 A 160,160 0 0,0 377,331 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 800', 'tire')"/>
+                    <text x="390" y="405" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(150, 390, 405)">Tire 800</text>
+
+                    <!-- Tire 700 -->
+                    <path id="tire-700" class="segment" d="M 370,466 A 240,240 0 0,1 250,490 L 250,410 A 160,160 0 0,0 325,392 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 700', 'tire')"/>
+                    <text x="300" y="455" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(180, 300, 455)">Tire 700</text>
+
+                    <!-- Tire 600 -->
+                    <path id="tire-600" class="segment" d="M 250,490 A 240,240 0 0,1 130,466 L 175,392 A 160,160 0 0,0 250,410 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 600', 'tire')"/>
+                    <text x="195" y="450" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(210, 195, 450)">Tire 600</text>
+
+                    <!-- Tire 500 -->
+                    <path id="tire-500" class="segment" d="M 130,466 A 240,240 0 0,1 40,370 L 123,331 A 160,160 0 0,0 175,392 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 500', 'tire')"/>
+                    <text x="115" y="395" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(240, 115, 395)">Tire 500</text>
+
+                    <!-- Tire 400 -->
+                    <path id="tire-400" class="segment" d="M 40,370 A 240,240 0 0,1 10,250 L 90,250 A 160,160 0 0,0 123,331 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 400', 'tire')"/>
+                    <text x="65" y="305" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(270, 65, 305)">Tire 400</text>
+
+                    <!-- Tire 300 -->
+                    <path id="tire-300" class="segment" d="M 10,250 A 240,240 0 0,1 40,130 L 123,169 A 160,160 0 0,0 90,250 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 300', 'tire')"/>
+                    <text x="65" y="195" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(300, 65, 195)">Tire 300</text>
+
+                    <!-- Tire 200 -->
+                    <path id="tire-200" class="segment" d="M 40,130 A 240,240 0 0,1 130,34 L 175,108 A 160,160 0 0,0 123,169 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 200', 'tire')"/>
+                    <text x="105" y="105" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(330, 105, 105)">Tire 200</text>
+
+                    <!-- Tire 100 -->
+                    <path id="tire-100" class="segment" d="M 130,34 A 240,240 0 0,1 250,10 L 250,90 A 160,160 0 0,0 175,108 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 100', 'tire')"/>
+                    <text x="185" y="65" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(360, 185, 65)">Tire 100</text>
+
+
+                    <!-- Inner Ring: 8 Core Sectors (Clockwise starting from top: Food, Shelter, Clothes, Knowledge, Health, Transportation, Security, Energy) -->
+                    <!-- Food -->
+                    <path id="sector-Food" class="segment" d="M 250,90 A 160,160 0 0,1 363,137 L 313,193 A 90,90 0 0,0 250,160 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Food', 'sector')"/>
+                    <text x="285" y="130" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Food</text>
+
+                    <!-- Shelter -->
+                    <path id="sector-Shelter" class="segment" d="M 363,137 A 160,160 0 0,1 410,250 L 340,250 A 90,90 0 0,0 313,193 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Shelter', 'sector')"/>
+                    <text x="365" y="200" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Shelter</text>
+
+                    <!-- Clothes -->
+                    <path id="sector-Clothes" class="segment" d="M 410,250 A 160,160 0 0,1 363,363 L 313,307 A 90,90 0 0,0 340,250 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Clothes', 'sector')"/>
+                    <text x="360" y="315" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Clothes</text>
+
+                    <!-- Knowledge -->
+                    <path id="sector-Knowledge" class="segment" d="M 363,363 A 160,160 0 0,1 250,410 L 250,340 A 90,90 0 0,0 313,307 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Knowledge', 'sector')"/>
+                    <text x="300" y="375" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Knowledge</text>
+
+                    <!-- Health -->
+                    <path id="sector-Health" class="segment" d="M 250,410 A 160,160 0 0,1 137,363 L 187,307 A 90,90 0 0,0 250,340 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Health', 'sector')"/>
+                    <text x="210" y="375" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Health</text>
+
+                    <!-- Transportation -->
+                    <path id="sector-Transportation" class="segment" d="M 137,363 A 160,160 0 0,1 90,250 L 160,250 A 90,90 0 0,0 187,307 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Transportation', 'sector')"/>
+                    <text x="135" y="315" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle" transform="rotate(-45, 135, 315)">Transport</text>
+
+                    <!-- Security -->
+                    <path id="sector-Security" class="segment" d="M 90,250 A 160,160 0 0,1 137,137 L 187,193 A 90,90 0 0,0 160,250 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Security', 'sector')"/>
+                    <text x="135" y="200" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Security</text>
+
+                    <!-- Energy -->
+                    <path id="sector-Energy" class="segment" d="M 137,137 A 160,160 0 0,1 250,90 L 250,160 A 90,90 0 0,0 187,193 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Energy', 'sector')"/>
+                    <text x="210" y="130" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Energy</text>
+
+                    <!-- Center Hub / Logo -->
+                    <circle cx="250" cy="250" r="90" fill="url(#hub-grad)" stroke="#38bdf8" stroke-width="2" class="cursor-pointer" onclick="selectItem('DR Logo', 'logo')"/>
+                    <g transform="translate(205, 205) scale(0.38)" class="cursor-pointer" onclick="selectItem('DR Logo', 'logo')">
+                        <path d="M70 20 L70 220 M70 20 C180 20, 220 100, 70 140 M120 120 C180 150, 240 220, 240 240" stroke="#38bdf8" stroke-width="24" fill="none" stroke-linecap="round"/>
+                    </g>
+                    <text x="250" y="295" fill="#cbd5e1" font-size="10" font-weight="bold" text-anchor="middle">DR Logo</text>
+                </svg>
+            </div>
         </div>
 
-        <h2>Open-Source Architecture & Verification</h2>
-        <div class="features">
-            <div class="feature-box">
-                <h3>Agent Simulation</h3>
-                <p>Modeled across 100,000 decentralized nodes using Python Mesa simulations to test multi-sector resource balancing.</p>
+        <!-- Right Column: Interactive Info Panel -->
+        <div class="lg:col-span-5 bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col justify-between min-h-[500px]">
+            <div>
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                    <h3 id="panel-title" class="text-xl font-bold text-cyan-400">Theory of Zero Framework</h3>
+                    <span id="panel-badge" class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-full border border-slate-700">Core Architecture</span>
+                </div>
+
+                <div id="panel-content" class="space-y-4 text-sm text-slate-300">
+                    <div class="bg-slate-800/60 p-3.5 rounded-lg border-l-4 border-cyan-400">
+                        <h4 class="font-semibold text-cyan-300 mb-1">What is it?</h4>
+                        <p id="info-what">The Theory of Zero (DR SelfEconomy) is an open-source, cybernetic macroeconomic framework designed to eliminate systemic scarcity by anchoring economic output directly to essential physical resources.</p>
+                    </div>
+                    <div class="bg-slate-800/60 p-3.5 rounded-lg border-l-4 border-cyan-400">
+                        <h4 class="font-semibold text-cyan-300 mb-1">Why is it structured this way?</h4>
+                        <p id="info-why">Traditional monetary systems generate artificial scarcity and wealth concentration. This architecture decouples fundamental survival from currency fluctuation.</p>
+                    </div>
+                    <div class="bg-slate-800/60 p-3.5 rounded-lg border-l-4 border-cyan-400">
+                        <h4 class="font-semibold text-cyan-300 mb-1">How does it work?</h4>
+                        <p id="info-how">It coordinates via 12-Tire municipal frameworks, Solidity tribunal smart contracts, Circom zero-knowledge privacy verification, and Python Mesa agent-based simulations.</p>
+                    </div>
+                    <div class="bg-slate-800/60 p-3.5 rounded-lg border-l-4 border-cyan-400">
+                        <h4 class="font-semibold text-cyan-300 mb-1">Who operates it?</h4>
+                        <p id="info-who">Managed collectively by decentralized community nodes, open-source contributors, and automated protocol validators.</p>
+                    </div>
+                    <div class="bg-slate-800/60 p-3.5 rounded-lg border-l-4 border-cyan-400">
+                        <h4 class="font-semibold text-cyan-300 mb-1">Where is it implemented?</h4>
+                        <p id="info-where">Hosted openly on GitHub and deployed across municipal pilot networks and decentralized web infrastructure.</p>
+                    </div>
+                </div>
             </div>
-            <div class="feature-box">
-                <h3>Smart Contracts</h3>
-                <p>Enforced via decentralized tribunal engines (<code>Tire1200TribunalEngine.sol</code>) managing the 12-Tire framework.</p>
-            </div>
-            <div class="feature-box">
-                <h3>Zero-Knowledge Privacy</h3>
-                <p>Private baseline resource consumption verification implemented using Circom ZK circuits (<code>ConsumptionVerifier.circom</code>).</p>
+
+            <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-slate-500 flex justify-between items-center">
+                <span>drselfeconomy.org</span>
+                <span class="text-cyan-400">Click wheel segments to inspect</span>
             </div>
         </div>
 
-        <footer>
-            <p>DR SelfEconomy Project &bull; Open Source Macroeconomic Architecture &bull; <a href="https://github.com/Dibya-Ratna/drselfeconomy.github.io" target="_blank">View GitHub Repository</a></p>
-        </footer>
-    </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-7xl mx-auto w-full text-center text-xs text-slate-500 border-t border-slate-800 pt-6 mt-8">
+        <p>DR SelfEconomy Project &bull; Open Source Macroeconomic Architecture &bull; <a href="https://github.com/Dibya-Ratna/drselfeconomy.github.io" target="_blank" class="text-cyan-400 hover:underline">View GitHub Repository</a></p>
+    </footer>
+
+    <script>
+        const database = {
+            "DR Logo": {
+                badge: "Core Emblem",
+                what: "The official DR SelfEconomy emblem representing the sovereign cybernetic integration of human agency and resource equilibrium.",
+                why: "Serves as the visual anchor for trust, transparency, and decentralization across all municipal nodes.",
+                how: "Encapsulates the mathematical symmetry of the Theory of Zero framework.",
+                who: "Authored and maintained by project architect and open-source contributors.",
+                where: "Embedded across all digital portals, smart contracts, and official documentation."
+            },
+            "Food": {
+                badge: "Sector 1",
+                what: "Resource-backed distribution pipeline ensuring absolute nutritional baseline equilibrium across municipal nodes.",
+                why: "Decouples biological survival and nutrition from speculative monetary markets to eliminate food insecurity.",
+                how: "Operates via decentralized balancing algorithms tracking agricultural yields and local distribution.",
+                who: "Managed by municipal agricultural cooperatives and automated supply chains.",
+                where: "Implemented across local community food hubs and regional distribution networks."
+            },
+            "Shelter": {
+                badge: "Sector 2",
+                what: "Guarantees sustainable, modular, and energy-efficient habitation for every participant.",
+                why: "Housing is a fundamental biological requirement, not a speculative investment vehicle driving homelessness.",
+                how: "Utilizes decentralized registry contracts and resource-backed capacity allocation metrics.",
+                who: "Maintained by municipal housing cooperatives and ecological architecture nodes.",
+                where: "Integrated across residential microgrids and community housing trusts."
+            },
+            "Clothes": {
+                badge: "Sector 3",
+                what: "Governs circular textile production, durability standards, and closed-loop material flows.",
+                why: "Minimizes ecological waste and linear consumer exploitation through durable lifecycle tracking.",
+                how: "Implements standardized volumetric measurement and recycling incentive ledgers.",
+                who: "Operated by textile recycling collectives and sustainable production networks.",
+                where: "Distributed through community asset libraries and circular exchange hubs."
+            },
+            "Knowledge": {
+                badge: "Sector 4",
+                what: "Guarantees open, frictionless access to educational curricula, scientific research, and architectures.",
+                why: "Information asymmetry and paywalled education stifle human potential. Knowledge is a public good.",
+                how: "Hosted via decentralized open-access repositories and verifiable verification frameworks.",
+                who: "Contributed and governed by global researchers, educators, and open-source developers.",
+                where: "Distributed globally across peer-to-peer repositories and web portals like drselfeconomy.org."
+            },
+            "Health": {
+                badge: "Sector 5",
+                what: "Focuses on preventative care, wellness infrastructure, and universal access to medical resources.",
+                why: "Healthcare tied to ability-to-pay creates systemic vulnerability during public health crises.",
+                how: "Tracked securely through zero-knowledge privacy circuits (ConsumptionVerifier.circom).",
+                who: "Administered by healthcare practitioners and municipal wellness cooperatives.",
+                where: "Deployed across local health clinics and cryptographic privacy registries."
+            },
+            "Transportation": {
+                badge: "Sector 6",
+                what: "Optimizes low-emission, shared, and efficient mobility networks across municipal zones.",
+                why: "Eliminates congestion, pollution, and high economic friction caused by fossil-fuel dependency.",
+                how: "Powered by community resource availability, shared electric fleets, and demand routing algorithms.",
+                who: "Operated by public transit cooperatives and mobility engineering nodes.",
+                where: "Integrated across municipal transit grids and regional zero-emission corridors."
+            },
+            "Security": {
+                badge: "Sector 7",
+                what: "Maintains municipal safety, privacy, and protocol compliance across all network nodes.",
+                why: "Replaces corruptible centralized policing with unalterable cryptographic rules and transparent consensus.",
+                how: "Enforced via decentralized tribunal engines (Tire1200TribunalEngine.sol).",
+                who: "Maintained collectively through community oversight and automated smart contract execution.",
+                where: "Embedded directly into blockchain state transition layers and local arbitration committees."
+            },
+            "Energy": {
+                badge: "Sector 8",
+                what: "Coordinates decentralized renewable grids, storage allocation, and baseline power quotas.",
+                why: "Protects communities against energy monopolies, price shocks, and grid blackouts.",
+                how: "Balanced automatically through cybernetic feedback loops matching generation with municipal demand.",
+                who: "Managed by renewable microgrids, electrical engineers, and automated grid controllers.",
+                where: "Distributed across solar arrays, battery storage banks, and municipal microgrids."
+            },
+            "Tire 1200": {
+                badge: "Apex Tier",
+                what: "The apex tier of the self-economy, integrating all 8 core sectors with advanced automation.",
+                why: "Provides ultimate system stability and comprehensive resource equilibrium at scale.",
+                how: "Governed by master protocol contracts and zero-knowledge aggregate verification.",
+                who: "Managed by global network consensus and decentralized municipal assemblies.",
+                where: "Implemented at the highest administrative tier of the DR SelfEconomy framework."
+            },
+            "Tire 1100": {
+                badge: "Advanced Tier",
+                what: "Advanced municipal resource coordination tier for regional surplus balancing.",
+                why: "Ensures seamless interoperability between local sectors and broader economic layers.",
+                how: "Automated via cross-chain messaging and multi-tier cryptographic proofs.",
+                who: "Operated by regional council nodes and automated balancing contracts.",
+                where: "Deeds deployed across regional distribution networks."
+            },
+            "Tire 1000": {
+                badge: "Tier 1000",
+                what: "Macro-economic resource indexing tier tracking baseline societal consumption metrics.",
+                why: "Maintains precise statistical visibility into resource flow and systemic efficiency.",
+                how: "Calculated continuously via Python Mesa simulation models and ledger telemetry.",
+                who: "Monitored by economic analysts and automated audit contracts.",
+                where: "Integrated into core ledger reporting modules."
+            },
+            "Tire 900": {
+                badge: "Tier 900",
+                what: "Mid-to-high municipal tier managing infrastructure maintenance and public works.",
+                why: "Guarantees physical upkeep of vital civic infrastructure without monetary debt.",
+                how: "Triggered automatically when wear-and-tear thresholds are verified on-chain.",
+                who: "Executed by public works cooperatives and maintenance smart contracts.",
+                where: "Deployed across municipal physical assets."
+            },
+            "Tire 800": {
+                badge: "Tier 800",
+                what: "Community resource allocation tier handling localized supply chain logistics.",
+                why: "Streamlines distribution efficiency between production nodes and end participants.",
+                how: "Optimized through algorithmic routing and RFID-tagged packaging metrics.",
+                who: "Managed by local logistics coordinators and automated depots.",
+                where: "Active within municipal neighborhood distribution centers."
+            },
+            "Tire 700": {
+                badge: "Tier 700",
+                what: "Cooperative governance tier for democratic resource prioritization.",
+                why: "Ensures community voice and participatory feedback directly shape resource allocation.",
+                how: "Votes recorded and executed via decentralized governance contracts.",
+                who: "Participated in by active community members and delegates.",
+                where: "Hosted on-chain and through local assembly portals."
+            },
+            "Tire 600": {
+                badge: "Tier 600",
+                what: "Baseline quota verification tier ensuring no participant falls below survival thresholds.",
+                why: "Guarantees the core tenet of zero systemic scarcity.",
+                how: "Verified privately using Circom zero-knowledge circuits (ConsumptionVerifier.circom).",
+                who: "Validated autonomously by cryptographic proof verification nodes.",
+                where: "Executed on decentralized smart contract execution layers."
+            },
+            "Tire 500": {
+                badge: "Tier 500",
+                what: "Emergency reserve and redundancy tier for unexpected environmental or supply shocks.",
+                why: "Provides robust resilience against natural disasters or supply disruptions.",
+                how: "Maintained via locked reserve pools released automatically upon emergency oracle signals.",
+                who: "Supervised by emergency response nodes and safety tribunals.",
+                where: "Distributed across secure municipal reserve nodes."
+            },
+            "Tire 400": {
+                badge: "Tier 400",
+                what: "Education and skill accreditation tier for sector participation.",
+                why: "Ensures all participants are equipped with the knowledge required to operate municipal nodes.",
+                how: "Tracked through decentralized credential registries and open-source curricula.",
+                who: "Facilitated by educators, mentors, and verification protocols.",
+                where: "Hosted across digital learning nodes and community workshops."
+            },
+            "Tire 300": {
+                badge: "Tier 300",
+                what: "Ecological monitoring and waste recycling tier.",
+                why: "Enforces zero-waste closed-loop material cycles across all production sectors.",
+                how: "Tracked via sensor telemetry and automated recycling verification contracts.",
+                who: "Maintained by ecological monitoring cooperatives and sanitation nodes.",
+                where: "Integrated across municipal waste management and recycling hubs."
+            },
+            "Tire 200": {
+                badge: "Tier 200",
+                what: "Identity and credential management tier ensuring sovereign participant privacy.",
+                why: "Protects individual privacy while maintaining verifiable eligibility for sector resources.",
+                how: "Secured using zero-knowledge identity primitives and cryptographic keys.",
+                who: "Controlled entirely by the individual participant.",
+                where: "Stored locally on participant devices and verified cryptographically."
+            },
+            "Tire 100": {
+                badge: "Foundation Tier",
+                what: "The foundational genesis tier of the DR SelfEconomy architecture.",
+                why: "Establishes the immutable genesis parameters and baseline physical axioms of the system.",
+                how: "Anchored permanently in the genesis block and core protocol specifications.",
+                who: "Authored by project founders and foundational protocol developers.",
+                where: "Hardcoded into repository genesis files and core smart contracts."
+            }
+        };
+
+        function selectItem(name, type) {
+            document.querySelectorAll('.segment').forEach(el => el.classList.remove('active'));
+            
+            let elementId = type === 'sector' ? `sector-${name}` : `tire-${name.toLowerCase().replace(' ', '-')}`;
+            let el = document.getElementById(elementId);
+            if (el) el.classList.add('active');
+
+            let data = database[name] || {
+                badge: "Architecture Spec",
+                what: `${name} component within the Theory of Zero framework.`,
+                why: "Contributes to municipal resource equilibrium and systemic scarcity elimination.",
+                how: "Governed by cybernetic balancing and smart contract verification.",
+                who: "Managed by decentralized community nodes.",
+                where: "Implemented across DR SelfEconomy infrastructure."
+            };
+
+            document.getElementById('panel-title').innerText = name;
+            document.getElementById('panel-badge').innerText = data.badge;
+            document.getElementById('info-what').innerText = data.what;
+            document.getElementById('info-why').innerText = data.why;
+            document.getElementById('info-how').innerText = data.how;
+            document.getElementById('info-who').innerText = data.who;
+            document.getElementById('info-where').innerText = data.where;
+        }
+    </script>
 </body>
 </html>
