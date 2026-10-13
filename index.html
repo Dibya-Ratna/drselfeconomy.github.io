@@ -12,8 +12,8 @@
         p { color: #cbd5e1; font-size: 1.1rem; }
         .tagline { font-size: 1.25rem; color: #94a3b8; margin-bottom: 30px; font-weight: 300; }
         .sectors { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .sector-card { background: #334155; padding: 20px; border-radius: 10px; text-align: center; font-weight: bold; color: #38bdf8; border: 1px solid #475569; transition: transform 0.2s; }
-        .sector-card:hover { transform: translateY(-3px); border-color: #38bdf8; }
+        .sector-card { background: #334155; padding: 20px; border-radius: 10px; text-align: center; font-weight: bold; color: #38bdf8; border: 1px solid #475569; transition: transform 0.2s, background 0.2s; display: block; text-decoration: none; }
+        .sector-card:hover { transform: translateY(-3px); border-color: #38bdf8; background: #3b82f6; color: #ffffff; }
         .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
         .feature-box { background: #0f172a; padding: 20px; border-radius: 10px; border-left: 4px solid #38bdf8; }
         .feature-box h3 { margin-top: 0; color: #f8fafc; }
@@ -30,16 +30,16 @@
         <p>Welcome to the official architecture portal for the DR SelfEconomy macro-economic framework. The Theory of Zero is a mathematical and architectural model designed to transition municipal systems toward absolute resource equilibrium, decoupling survival from artificial monetary scarcity.</p>
 
         <h2>Core Economic Sectors</h2>
-        <p>The economy is structured around eight foundational pillars required to sustain human civilization sustainably:</p>
+        <p>Click on any sector below to explore its specific architectural model and resource-balancing mechanics:</p>
         <div class="sectors">
-            <div class="sector-card">Food</div>
-            <div class="sector-card">Shelter</div>
-            <div class="sector-card">Clothes</div>
-            <div class="sector-card">Knowledge</div>
-            <div class="sector-card">Health</div>
-            <div class="sector-card">Transportation</div>
-            <div class="sector-card">Security</div>
-            <div class="sector-card">Energy</div>
+            <a href="sector.html?name=Food" class="sector-card">Food</a>
+            <a href="sector.html?name=Shelter" class="sector-card">Shelter</a>
+            <a href="sector.html?name=Clothes" class="sector-card">Clothes</a>
+            <a href="sector.html?name=Knowledge" class="sector-card">Knowledge</a>
+            <a href="sector.html?name=Health" class="sector-card">Health</a>
+            <a href="sector.html?name=Transportation" class="sector-card">Transportation</a>
+            <a href="sector.html?name=Security" class="sector-card">Security</a>
+            <a href="sector.html?name=Energy" class="sector-card">Energy</a>
         </div>
 
         <h2>Open-Source Architecture & Verification</h2>

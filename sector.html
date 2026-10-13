@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sector Details — Theory of Zero</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 40px 20px; line-height: 1.6; }
+        .container { max-width: 800px; margin: auto; background: #1e293b; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { color: #38bdf8; font-size: 2.2rem; margin-bottom: 10px; border-bottom: 2px solid #334155; padding-bottom: 15px; }
+        p { color: #cbd5e1; font-size: 1.1rem; }
+        .back-link { display: inline-block; margin-top: 30px; color: #38bdf8; text-decoration: none; font-weight: bold; }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="sector-title">Sector Architecture</h1>
+        <p id="sector-desc">Loading detailed resource-backed cybernetic mechanics...</p>
+        <a href="index.html" class="back-link">&larr; Back to Main Portal</a>
+    </div>
+
+    <script>
+        // Simple script to read sector name from URL parameters and display custom text
+        const params = new URLSearchParams(window.location.search);
+        const sector = params.get('name') || 'General';
+        document.getElementById('sector-title').innerText = sector + ' — Theory of Zero';
+        
+        const descriptions = {
+            "Food": "The Food sector ensures baseline nutritional equilibrium across all municipal nodes through resource-backed agricultural distribution, eliminating artificial scarcity and food insecurity via decentralized balancing models.",
+            "Shelter": "The Shelter sector guarantees sustainable, modular, and energy-efficient habitation for every participant, managed through decentralized registry contracts to maintain absolute housing security.",
+            "Clothes": "The Clothes sector governs circular textile production, durability standards, and closed-loop material flows, minimizing waste and ensuring equitable access to essential apparel.",
+            "Knowledge": "The Knowledge sector guarantees open access to educational curricula, scientific research, and technical architectures, treating information as a non-rivalrous public good.",
+            "Health": "The Health sector focuses on preventative care, wellness infrastructure, and universal access to medical resources, tracked securely through zero-knowledge verification frameworks.",
+            "Transportation": "The Transportation sector optimizes low-emission, shared, and efficient mobility networks designed around community resource availability rather than speculative pricing.",
+            "Security": "The Security sector maintains municipal safety, privacy, and protocol compliance through decentralized tribunal engines (Tire1200TribunalEngine) and cryptographic rules.",
+            "Energy": "The Energy sector coordinates decentralized renewable grids, storage allocation, and baseline power quotas to power the entire DR SelfEconomy framework sustainably."
+        };
+
+        if (descriptions[sector]) {
+            document.getElementById('sector-desc').innerText = descriptions[sector];
+        } else {
+            document.getElementById('sector-desc').innerText = "Detailed mathematical modeling and resource-balancing protocols for " + sector + " under the Theory of Zero framework.";
+        }
+    </script>
+</body>
+</html>
