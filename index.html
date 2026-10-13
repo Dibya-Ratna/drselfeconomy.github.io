@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0f172a; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
-        .wheel-container { position: relative; width: 100%; max-width: 520px; aspect-ratio: 1; margin: auto; }
+        .wheel-container { position: relative; width: 100%; max-width: 480px; aspect-ratio: 1 / 1; margin: auto; }
         .segment { transition: all 0.2s ease; cursor: pointer; }
         .segment:hover { filter: brightness(1.2); }
         .segment.active { stroke: #38bdf8; stroke-width: 3px; filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.8)); }
@@ -34,13 +34,13 @@
         <!-- Left Column: Interactive Wheel -->
         <div class="lg:col-span-7 flex flex-col items-center justify-center bg-slate-900/60 p-6 rounded-2xl border border-slate-800 shadow-xl">
             <div class="text-center mb-4">
-                <h2 class="text-lg font-semibold text-slate-200">Interactive 12-Tire & 8-Sector Framework</h2>
-                <p class="text-xs text-slate-400">Click any Tire or Sector to inspect architectural specifications.</p>
+                <h2 class="text-lg font-semibold text-slate-200">Concentric Dual-Ring Architecture</h2>
+                <p class="text-xs text-slate-400">Click any Tire, Sector, or Center Emblem to inspect specifications.</p>
             </div>
 
-            <!-- SVG Dual Ring Wheel -->
+            <!-- SVG Perfectly Round Dual Ring Wheel -->
             <div class="wheel-container">
-                <svg viewBox="0 0 500 500" class="w-full h-full drop-shadow-2xl">
+                <svg viewBox="0 0 500 500" class="w-full h-full drop-shadow-2xl" style="width: 100%; height: 100%;">
                     <defs>
                         <radialGradient id="hub-grad" cx="50%" cy="50%" r="50%">
                             <stop offset="0%" stop-color="#1e293b"/>
@@ -48,95 +48,74 @@
                         </radialGradient>
                     </defs>
 
-                    <!-- Outer Ring: 12 Tires (Clockwise starting from top: Tire 1200, Tire 1100 ... Tire 100) -->
-                    <!-- Tire 1200 (Top) -->
+                    <!-- Outer Ring: 12 Tires (Clockwise order: 1200, 1100, 1000, 900, 800, 700, 600, 500, 400, 300, 200, 100) -->
                     <path id="tire-1200" class="segment" d="M 250,10 A 240,240 0 0,1 370,34 L 325,108 A 160,160 0 0,0 250,90 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 1200', 'tire')"/>
-                    <text x="310" y="65" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(30, 310, 65)">Tire 1200</text>
+                    <text x="310" y="62" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(30, 310, 62)">Tire 1200</text>
 
-                    <!-- Tire 1100 -->
                     <path id="tire-1100" class="segment" d="M 370,34 A 240,240 0 0,1 460,130 L 377,169 A 160,160 0 0,0 325,108 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 1100', 'tire')"/>
-                    <text x="420" y="105" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(60, 420, 105)">Tire 1100</text>
+                    <text x="415" y="105" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(60, 415, 105)">Tire 1100</text>
 
-                    <!-- Tire 1000 -->
                     <path id="tire-1000" class="segment" d="M 460,130 A 240,240 0 0,1 490,250 L 410,250 A 160,160 0 0,0 377,169 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 1000', 'tire')"/>
-                    <text x="450" y="195" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(90, 450, 195)">Tire 1000</text>
+                    <text x="450" y="195" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(90, 450, 195)">Tire 1000</text>
 
-                    <!-- Tire 900 -->
                     <path id="tire-900" class="segment" d="M 490,250 A 240,240 0 0,1 460,370 L 377,331 A 160,160 0 0,0 410,250 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 900', 'tire')"/>
-                    <text x="440" y="310" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(120, 440, 310)">Tire 900</text>
+                    <text x="445" y="310" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(120, 445, 310)">Tire 900</text>
 
-                    <!-- Tire 800 -->
                     <path id="tire-800" class="segment" d="M 460,370 A 240,240 0 0,1 370,466 L 325,392 A 160,160 0 0,0 377,331 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 800', 'tire')"/>
-                    <text x="390" y="405" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(150, 390, 405)">Tire 800</text>
+                    <text x="390" y="405" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(150, 390, 405)">Tire 800</text>
 
-                    <!-- Tire 700 -->
                     <path id="tire-700" class="segment" d="M 370,466 A 240,240 0 0,1 250,490 L 250,410 A 160,160 0 0,0 325,392 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 700', 'tire')"/>
-                    <text x="300" y="455" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(180, 300, 455)">Tire 700</text>
+                    <text x="300" y="452" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(180, 300, 452)">Tire 700</text>
 
-                    <!-- Tire 600 -->
                     <path id="tire-600" class="segment" d="M 250,490 A 240,240 0 0,1 130,466 L 175,392 A 160,160 0 0,0 250,410 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 600', 'tire')"/>
-                    <text x="195" y="450" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(210, 195, 450)">Tire 600</text>
+                    <text x="200" y="452" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(210, 200, 452)">Tire 600</text>
 
-                    <!-- Tire 500 -->
                     <path id="tire-500" class="segment" d="M 130,466 A 240,240 0 0,1 40,370 L 123,331 A 160,160 0 0,0 175,392 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 500', 'tire')"/>
-                    <text x="115" y="395" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(240, 115, 395)">Tire 500</text>
+                    <text x="110" y="405" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(240, 110, 405)">Tire 500</text>
 
-                    <!-- Tire 400 -->
                     <path id="tire-400" class="segment" d="M 40,370 A 240,240 0 0,1 10,250 L 90,250 A 160,160 0 0,0 123,331 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 400', 'tire')"/>
-                    <text x="65" y="305" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(270, 65, 305)">Tire 400</text>
+                    <text x="55" y="310" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(270, 55, 310)">Tire 400</text>
 
-                    <!-- Tire 300 -->
                     <path id="tire-300" class="segment" d="M 10,250 A 240,240 0 0,1 40,130 L 123,169 A 160,160 0 0,0 90,250 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 300', 'tire')"/>
-                    <text x="65" y="195" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(300, 65, 195)">Tire 300</text>
+                    <text x="50" y="195" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(300, 50, 195)">Tire 300</text>
 
-                    <!-- Tire 200 -->
                     <path id="tire-200" class="segment" d="M 40,130 A 240,240 0 0,1 130,34 L 175,108 A 160,160 0 0,0 123,169 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 200', 'tire')"/>
-                    <text x="105" y="105" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(330, 105, 105)">Tire 200</text>
+                    <text x="85" y="105" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(330, 85, 105)">Tire 200</text>
 
-                    <!-- Tire 100 -->
                     <path id="tire-100" class="segment" d="M 130,34 A 240,240 0 0,1 250,10 L 250,90 A 160,160 0 0,0 175,108 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 100', 'tire')"/>
-                    <text x="185" y="65" fill="#94a3b8" font-size="11" font-weight="bold" transform="rotate(360, 185, 65)">Tire 100</text>
+                    <text x="190" y="62" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(360, 190, 62)">Tire 100</text>
 
-
-                    <!-- Inner Ring: 8 Core Sectors (Clockwise starting from top: Food, Shelter, Clothes, Knowledge, Health, Transportation, Security, Energy) -->
-                    <!-- Food -->
+                    <!-- Inner Ring: 8 Core Sectors (Clockwise order: Food, Shelter, Clothes, Knowledge, Health, Transportation, Security, Energy) -->
                     <path id="sector-Food" class="segment" d="M 250,90 A 160,160 0 0,1 363,137 L 313,193 A 90,90 0 0,0 250,160 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Food', 'sector')"/>
-                    <text x="285" y="130" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Food</text>
+                    <text x="288" y="132" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Food</text>
 
-                    <!-- Shelter -->
                     <path id="sector-Shelter" class="segment" d="M 363,137 A 160,160 0 0,1 410,250 L 340,250 A 90,90 0 0,0 313,193 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Shelter', 'sector')"/>
                     <text x="365" y="200" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Shelter</text>
 
-                    <!-- Clothes -->
                     <path id="sector-Clothes" class="segment" d="M 410,250 A 160,160 0 0,1 363,363 L 313,307 A 90,90 0 0,0 340,250 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Clothes', 'sector')"/>
                     <text x="360" y="315" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Clothes</text>
 
-                    <!-- Knowledge -->
                     <path id="sector-Knowledge" class="segment" d="M 363,363 A 160,160 0 0,1 250,410 L 250,340 A 90,90 0 0,0 313,307 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Knowledge', 'sector')"/>
                     <text x="300" y="375" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Knowledge</text>
 
-                    <!-- Health -->
                     <path id="sector-Health" class="segment" d="M 250,410 A 160,160 0 0,1 137,363 L 187,307 A 90,90 0 0,0 250,340 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Health', 'sector')"/>
                     <text x="210" y="375" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Health</text>
 
-                    <!-- Transportation -->
                     <path id="sector-Transportation" class="segment" d="M 137,363 A 160,160 0 0,1 90,250 L 160,250 A 90,90 0 0,0 187,307 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Transportation', 'sector')"/>
-                    <text x="135" y="315" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle" transform="rotate(-45, 135, 315)">Transport</text>
+                    <text x="135" y="315" fill="#38bdf8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(-45, 135, 315)">Transport</text>
 
-                    <!-- Security -->
                     <path id="sector-Security" class="segment" d="M 90,250 A 160,160 0 0,1 137,137 L 187,193 A 90,90 0 0,0 160,250 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Security', 'sector')"/>
                     <text x="135" y="200" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Security</text>
 
-                    <!-- Energy -->
                     <path id="sector-Energy" class="segment" d="M 137,137 A 160,160 0 0,1 250,90 L 250,160 A 90,90 0 0,0 187,193 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Energy', 'sector')"/>
-                    <text x="210" y="130" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Energy</text>
+                    <text x="210" y="132" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Energy</text>
 
-                    <!-- Center Hub / Logo -->
+                    <!-- Center Hub / Perfectly Centered Logo -->
                     <circle cx="250" cy="250" r="90" fill="url(#hub-grad)" stroke="#38bdf8" stroke-width="2" class="cursor-pointer" onclick="selectItem('DR Logo', 'logo')"/>
-                    <g transform="translate(205, 205) scale(0.38)" class="cursor-pointer" onclick="selectItem('DR Logo', 'logo')">
+                    <g transform="translate(195, 185) scale(0.42)" class="cursor-pointer" onclick="selectItem('DR Logo', 'logo')">
                         <path d="M70 20 L70 220 M70 20 C180 20, 220 100, 70 140 M120 120 C180 150, 240 220, 240 240" stroke="#38bdf8" stroke-width="24" fill="none" stroke-linecap="round"/>
                     </g>
-                    <text x="250" y="295" fill="#cbd5e1" font-size="10" font-weight="bold" text-anchor="middle">DR Logo</text>
+                    <text x="250" y="292" fill="#cbd5e1" font-size="9" font-weight="bold" text-anchor="middle" opacity="0.8">DR Logo</text>
                 </svg>
             </div>
         </div>
@@ -360,7 +339,6 @@
 
         function selectItem(name, type) {
             document.querySelectorAll('.segment').forEach(el => el.classList.remove('active'));
-            
             let elementId = type === 'sector' ? `sector-${name}` : `tire-${name.toLowerCase().replace(' ', '-')}`;
             let el = document.getElementById(elementId);
             if (el) el.classList.add('active');
