@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sector Details — Theory of Zero</title>
+    <title>Sector Architecture — Theory of Zero</title>
     <style>
-        body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 40px 20px; line-height: 1.6; }
-        .container { max-width: 800px; margin: auto; background: #1e293b; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { color: #38bdf8; font-size: 2.2rem; margin-bottom: 10px; border-bottom: 2px solid #334155; padding-bottom: 15px; }
-        p { color: #cbd5e1; font-size: 1.1rem; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 40px 20px; line-height: 1.7; }
+        .container { max-width: 850px; margin: auto; background: #1e293b; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { color: #38bdf8; font-size: 2.2rem; margin-bottom: 5px; border-bottom: 2px solid #334155; padding-bottom: 15px; }
+        .subtitle { color: #94a3b8; font-size: 1.1rem; margin-bottom: 30px; font-weight: 300; }
+        h3 { color: #38bdf8; margin-top: 25px; margin-bottom: 8px; font-size: 1.2rem; }
+        p { color: #cbd5e1; font-size: 1.05rem; margin-top: 0; }
+        .qa-block { background: #0f172a; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #38bdf8; }
         .back-link { display: inline-block; margin-top: 30px; color: #38bdf8; text-decoration: none; font-weight: bold; }
         .back-link:hover { text-decoration: underline; }
     </style>
@@ -16,32 +19,109 @@
 <body>
     <div class="container">
         <h1 id="sector-title">Sector Architecture</h1>
-        <p id="sector-desc">Loading detailed resource-backed cybernetic mechanics...</p>
+        <div class="subtitle">DR SelfEconomy Macro-Economic Framework</div>
+        
+        <div id="content-area">
+            <p>Loading comprehensive architectural breakdown...</p>
+        </div>
+
         <a href="index.html" class="back-link">&larr; Back to Main Portal</a>
     </div>
 
     <script>
-        // Simple script to read sector name from URL parameters and display custom text
         const params = new URLSearchParams(window.location.search);
         const sector = params.get('name') || 'General';
         document.getElementById('sector-title').innerText = sector + ' — Theory of Zero';
-        
-        const descriptions = {
-            "Food": "The Food sector ensures baseline nutritional equilibrium across all municipal nodes through resource-backed agricultural distribution, eliminating artificial scarcity and food insecurity via decentralized balancing models.",
-            "Shelter": "The Shelter sector guarantees sustainable, modular, and energy-efficient habitation for every participant, managed through decentralized registry contracts to maintain absolute housing security.",
-            "Clothes": "The Clothes sector governs circular textile production, durability standards, and closed-loop material flows, minimizing waste and ensuring equitable access to essential apparel.",
-            "Knowledge": "The Knowledge sector guarantees open access to educational curricula, scientific research, and technical architectures, treating information as a non-rivalrous public good.",
-            "Health": "The Health sector focuses on preventative care, wellness infrastructure, and universal access to medical resources, tracked securely through zero-knowledge verification frameworks.",
-            "Transportation": "The Transportation sector optimizes low-emission, shared, and efficient mobility networks designed around community resource availability rather than speculative pricing.",
-            "Security": "The Security sector maintains municipal safety, privacy, and protocol compliance through decentralized tribunal engines (Tire1200TribunalEngine) and cryptographic rules.",
-            "Energy": "The Energy sector coordinates decentralized renewable grids, storage allocation, and baseline power quotas to power the entire DR SelfEconomy framework sustainably."
+
+        const sectorData = {
+            "Food": {
+                what: "The Food sector is a resource-backed distribution pipeline designed to ensure absolute nutritional baseline equilibrium across all municipal nodes.",
+                why: "Traditional monetary markets treat nutrition as a speculative commodity, causing artificial scarcity and food insecurity. This sector decouples survival from currency fluctuation.",
+                how: "It operates via decentralized resource-balancing algorithms and smart contract registries that track agricultural yield, processing, and local distribution fairly.",
+                who: "Managed collectively by municipal agricultural nodes, automated supply-chain cooperatives, and validated through zero-knowledge verification.",
+                where: "Implemented locally across community distribution hubs and globally coordinated via the open-source DR SelfEconomy framework."
+            },
+            "Shelter": {
+                what: "The Shelter sector guarantees sustainable, modular, and energy-efficient habitation for every human participant.",
+                why: "Housing speculation creates systemic homelessness and housing precarity. Shelter is a fundamental biological requirement, not an investment vehicle.",
+                how: "Utilizes decentralized registry contracts and resource-backed allocation metrics to match living space capacity directly with community participants.",
+                who: "Maintained by municipal housing cooperatives, ecological architects, and automated tribunal validation engines.",
+                where: "Integrated across residential zones, community hubs, and decentralized municipal planning nodes."
+            },
+            "Clothes": {
+                what: "The Clothes sector governs circular textile production, durability standards, and closed-loop material flows.",
+                why: "Fast fashion and linear consumerism generate massive ecological waste and unsustainable resource depletion.",
+                how: "Implements standardized volumetric measurement, recycling incentives, and durable product lifecycle tracking.",
+                who: "Operated by textile recycling collectives, sustainable producers, and conscious consumer networks.",
+                where: "Distributed through community asset libraries and local circular exchange hubs."
+            },
+            "Knowledge": {
+                what: "The Knowledge sector guarantees open, frictionless access to educational curricula, scientific research, and technical architectures.",
+                why: "Information asymmetry and paywalled education stifle human potential and innovation. Knowledge is a non-rivalrous public good.",
+                how: "Hosted via decentralized open-access repositories, public wikis, and verifiable verification frameworks like drselfeconomy.org.",
+                who: "Contributed to and governed by global researchers, educators, open-source developers, and learners.",
+                where: "Hosted globally on distributed networks and accessible via decentralized web portals."
+            },
+            "Health": {
+                what: "The Health sector focuses on preventative care, wellness infrastructure, and universal access to medical resources.",
+                why: "Healthcare tied to ability-to-pay creates systemic vulnerability and unequal life outcomes during crises.",
+                how: "Tracked securely through zero-knowledge privacy circuits (ConsumptionVerifier.circom) to ensure privacy while guaranteeing medical resource allocation.",
+                who: "Administered by healthcare practitioners, municipal wellness cooperatives, and automated verification protocols.",
+                where: "Deployed across local clinics, wellness centers, and decentralized cryptographic registries."
+            },
+            "Transportation": {
+                what: "The Transportation sector optimizes low-emission, shared, and efficient mobility networks.",
+                why: "Car-centric, fossil-fuel-dependent transport models create congestion, pollution, and high economic friction.",
+                how: "Designed around community resource availability, shared electric transit fleets, and demand-responsive routing algorithms.",
+                who: "Operated by public transit cooperatives, mobility engineers, and automated dispatch nodes.",
+                where: "Integrated across municipal transit grids, pedestrian zones, and regional logistics links."
+            },
+            "Security": {
+                what: "The Security sector maintains municipal safety, privacy, and protocol compliance across all nodes.",
+                why: "Centralized policing and punitive enforcement models often breed corruption and systemic distrust.",
+                how: "Enforced transparently via decentralized tribunal engines (Tire1200TribunalEngine.sol) and unalterable cryptographic rules.",
+                who: "Maintained collectively through transparent community consensus and decentralized tribunal nodes.",
+                where: "Embedded directly into smart contract execution layers and local community oversight committees."
+            },
+            "Energy": {
+                what: "The Energy sector coordinates decentralized renewable grids, storage allocation, and baseline power quotas.",
+                why: "Fossil-fuel monopolies and centralized energy grids are vulnerable to price shocks, blackouts, and ecological collapse.",
+                how: "Balanced automatically through cybernetic feedback loops that match power generation with real-time municipal demand.",
+                who: "Managed by renewable energy microgrids, electrical engineers, and automated grid controllers.",
+                where: "Distributed across local solar/wind installations, battery storage banks, and municipal microgrids."
+            }
         };
 
-        if (descriptions[sector]) {
-            document.getElementById('sector-desc').innerText = descriptions[sector];
-        } else {
-            document.getElementById('sector-desc').innerText = "Detailed mathematical modeling and resource-balancing protocols for " + sector + " under the Theory of Zero framework.";
-        }
+        const data = sectorData[sector] || {
+            what: "A foundational pillar of the Theory of Zero macro-economic framework.",
+            why: "Designed to eliminate systemic scarcity and align human survival with ecological equilibrium.",
+            how: "Governed by cybernetic resource-balancing and cryptographic verification engines.",
+            who: "Managed by decentralized community nodes and automated protocol contracts.",
+            where: "Implemented across municipal pilot networks and open-source digital repositories."
+        };
+
+        document.getElementById('content-area').innerHTML = `
+            <div class="qa-block">
+                <h3>What is it?</h3>
+                <p>${data.what}</p>
+            </div>
+            <div class="qa-block">
+                <h3>Why is it structured this way?</h3>
+                <p>${data.why}</p>
+            </div>
+            <div class="qa-block">
+                <h3>How does it work?</h3>
+                <p>${data.how}</p>
+            </div>
+            <div class="qa-block">
+                <h3>Who operates and maintains it?</h3>
+                <p>${data.who}</p>
+            </div>
+            <div class="qa-block">
+                <h3>Where is it implemented?</h3>
+                <p>${data.where}</p>
+            </div>
+        `;
     </script>
 </body>
 </html>
