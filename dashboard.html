@@ -78,6 +78,25 @@ searchBox.addEventListener('input', () => {
   }
 });
 
+
+// Architecture Relationships v2.2
+// Development-only relationship definitions.
+// These do not represent verified operational connections.
+const architectureRelationships = {
+  "100": ["200", "300"],
+  "200": ["100", "300"],
+  "300": ["100", "200", "400"],
+  "400": ["300", "600"],
+  "500": ["300", "600"],
+  "600": ["400", "500", "700"],
+  "700": ["600", "800", "900"],
+  "800": ["700", "900"],
+  "900": ["700", "800"],
+  "1000": [],
+  "1100": [],
+  "1200": []
+};
+
 </script>
 </body>
 </html>
