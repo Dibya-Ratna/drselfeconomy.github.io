@@ -31,6 +31,53 @@ function wedge(r1,r2,a,b){let p1=point(r2,a),p2=point(r2,b),p3=point(r1,b),p4=po
 function el(tag,attrs,text){let e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(text!==undefined)e.textContent=text;return e}
 function add(group,items,r1,r2,start,step,type){let g=document.getElementById(group);items.forEach((item,i)=>{let a=start+i*step,b=a+step,mid=(a+b)/2;let path=el('path',{d:wedge(r1,r2,a,b),fill:type==='Sector'?colors[i]:`hsl(${(i*28+310)%360} 85% 45%)`,class:'slice',tabindex:'0',role:'button','aria-label':`${type} ${item[0]}`});let show=()=>{document.querySelectorAll('.slice').forEach(s=>s.classList.remove('selected'));path.classList.add('selected');document.getElementById('kind').textContent=type;document.getElementById('name').textContent=(type==='Tire'?'Tire ':'')+item[0];document.getElementById('detail').textContent=item[1]};path.addEventListener('click',show);path.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show()}});g.appendChild(path);let [x,y]=point((r1+r2)/2,mid);g.appendChild(el('text',{x,y,class:`wheel-label ${type==='Tire'?'outer':''}`},type==='Tire'?'Tire '+item[0]:item[0]))})}
 add('inner',sectors,103,247,0,45,'Sector');add('outer',tires,250,365,-15,30,'Tire');
+
+const searchBox = document.createElement('input');
+searchBox.type = 'search';
+searchBox.placeholder = 'Search sectors or Tires...';
+searchBox.setAttribute('aria-label', 'Search sectors or Tires');
+searchBox.style.cssText = 'display:block;width:100%;padding:12px;margin:0 0 16px;border:1px solid #39d8ff;border-radius:10px;background:#081a38;color:white;font-size:16px';
+
+const searchResults = document.createElement('div');
+searchResults.setAttribute('aria-live', 'polite');
+searchResults.style.cssText = 'display:grid;gap:8px;margin-bottom:16px';
+
+const panel = document.querySelector('.panel');
+panel.insertBefore(searchResults, panel.firstChild);
+panel.insertBefore(searchBox, searchResults);
+
+searchBox.addEventListener('input', () => {
+  searchResults.replaceChildren();
+  const query = searchBox.value.trim().toLowerCase();
+  if (!query) return;
+
+  const matches = [...sectors.map((item, i) => ({
+    label: item[0], type: 'Sector', index: i
+  })), ...tires.map((item, i) => ({
+    label: 'Tire ' + item[0], type: 'Tire', index: i
+  }))].filter(item => item.label.toLowerCase().includes(query));
+
+  matches.forEach(item => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = item.label;
+    button.style.cssText = 'padding:10px;border:1px solid #307abf;border-radius:8px;background:#10346c;color:white;cursor:pointer;text-align:left';
+    button.addEventListener('click', () => {
+      const group = document.getElementById(item.type === 'Sector' ? 'inner' : 'outer');
+      const path = group.querySelectorAll('path')[item.index];
+      if (path) {
+        path.dispatchEvent(new MouseEvent('click'));
+        path.focus();
+      }
+    });
+    searchResults.appendChild(button);
+  });
+
+  if (!matches.length) {
+    searchResults.textContent = 'No matching sectors or Tires.';
+  }
+});
+
 </script>
 </body>
 </html>
