@@ -138,6 +138,12 @@ function resetRelationshipStyles(){
 }
 function highlightSectorRelationships(sectorName){
   resetRelationshipStyles();
+document.querySelectorAll('#inner path').forEach((path, index) => {
+  const selected = sectors[index][0] === sectorName;
+  path.style.opacity = selected ? '1' : '0.12';
+  if (selected) path.style.strokeWidth = '5';
+});
+
   const related=sectorTireRelationships[sectorName]||[];
   document.querySelectorAll('#outer path').forEach((path,index)=>{
     const connected=related.includes(String(tires[index][0]));
