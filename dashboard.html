@@ -75,7 +75,7 @@ const centerCircle = document.querySelector('.wheel-circle');
 function showFrameworkCenter() {
   document.querySelectorAll('.slice').forEach(
     s => s.classList.remove('selected')
-  );
+  );  resetRelationshipStyles();
 
   document.getElementById('kind').textContent = 'FRAMEWORK CENTER';
   document.getElementById('name').textContent = '108 — Theory of Zero';
