@@ -11,14 +11,16 @@ main{max-width:1380px;margin:auto;padding:24px 18px 55px}.intro{text-align:cente
 .layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(270px,.8fr);gap:22px;align-items:start}.wheel-wrap{background:linear-gradient(145deg,#0b2b61,#071833);border:1px solid #2a72bb;border-radius:22px;padding:14px;min-width:0;box-shadow:0 0 35px #006fff25}.wheel{display:block;width:100%;height:auto;max-width:760px;margin:auto}.slice{cursor:pointer;stroke:#b6f4ff;stroke-width:1.5;transition:filter .15s}.slice:hover,.slice:focus{filter:brightness(1.35);outline:none;stroke:#fff;stroke-width:3}.slice.selected{stroke:#fff;stroke-width:4;filter:brightness(1.18)}.wheel-label{pointer-events:none;fill:#fff;font-weight:700;text-anchor:middle;dominant-baseline:middle;font-size:12px}.wheel-label.outer{font-size:10px}.wheel-circle{fill:#061632;stroke:#5ee9ff;stroke-width:4}.center-number{font-size:69px;fill:#fff;font-weight:850;text-anchor:middle;dominant-baseline:middle;letter-spacing:-5px}.center-sub{font-size:10px;fill:#9ddfff;text-anchor:middle}
 .panel{background:linear-gradient(160deg,#10346c,#081a38);border:1px solid #307abf;border-radius:20px;padding:24px;min-height:300px}.panel .eyebrow{color:#67dfff;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}.panel h2{font-size:1.55rem;margin:14px 0}.panel p{line-height:1.65;color:#d1e7fa}.note{margin-top:16px;color:#a7c7e4;font-size:.86rem}.legend{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:15px 0 0;font-size:.9rem;color:#c9e8ff}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px}.footer{text-align:center;color:#a8c4df;margin-top:30px;font-size:.85rem}
 @media(max-width:850px){.layout{grid-template-columns:1fr}.panel{min-height:210px;padding:20px}main{padding:20px 10px 40px}.wheel-wrap{padding:5px}.wheel-label.outer{font-size:9px}}
-#wheel path:focus-visible, #wheel .wheel-circle:focus-visible {
+#wheel path:focus-visible {
   outline: none;
   stroke: #ffffff !important;
   stroke-width: 6 !important;
   filter: drop-shadow(0 0 6px #39d8ff);
 }
-  #wheel .wheel-circle:focus-visible {
-  outline: none;
+
+#wheel .wheel-circle:focus,
+#wheel .wheel-circle:focus-visible {
+  outline: none !important;
   stroke: #ffffff !important;
   stroke-width: 6 !important;
   filter: drop-shadow(0 0 6px #39d8ff);
