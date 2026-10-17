@@ -156,6 +156,18 @@ function highlightTireRelationships(tireNumber){
     path.style.opacity=selected||connected?'1':'0.35';
     if(selected||connected) path.style.strokeWidth=selected?'5':'3';
   });
+
+  // Highlight sectors associated with the selected Tire.
+  const selectedTire = String(tireNumber);
+  document.querySelectorAll('#inner path').forEach((path, index) => {
+    const sectorName = sectors[index][0];
+    const connected = (sectorTireRelationships[sectorName] || [])
+      .includes(selectedTire);
+
+    path.style.opacity = connected ? '1' : '0.35';
+    if (connected) path.style.strokeWidth = '3';
+  });
+
 }
 </script>
 </body>
