@@ -29,11 +29,27 @@ const colors=['#00a96c','#f7931e','#e52e75','#7240e4','#006cd6','#00a4b7','#f1ae
 function point(r,a){let t=(a-90)*Math.PI/180;return [cx+r*Math.cos(t),cy+r*Math.sin(t)]}
 function wedge(r1,r2,a,b){let p1=point(r2,a),p2=point(r2,b),p3=point(r1,b),p4=point(r1,a);return `M ${p1} A ${r2} ${r2} 0 0 1 ${p2} L ${p3} A ${r1} ${r1} 0 0 0 ${p4} Z`}
 function el(tag,attrs,text){let e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(text!==undefined)e.textContent=text;return e}
-function add(group,items,r1,r2,start,step,type){let g=document.getElementById(group);items.forEach((item,i)=>{let a=start+i*step,b=a+step,mid=(a+b)/2;let path=el('path',{d:wedge(r1,r2,a,b),fill:type==='Sector'?colors[i]:`hsl(${(i*28+310)%360} 85% 45%)`,class:'slice',tabindex:'0',role:'button','aria-label':`${type} ${item[0]}`});let show=()=>{document.querySelectorAll('.slice').forEach(s=>s.classList.remove('selected'));path.classList.add('selected');document.getElementById('kind').textContent=type;document.getElementById('name').textContent=(type==='Tire'?'Tire ':'')+item[0];document.getElementById('detail').textContent=item[1]};path.addEventListener('click',show);path.addEventListener('click', () => {
-  if (type === 'Tire') {
-    highlightTireRelationships(item[0]);
-  }
-});path.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show()}});g.appendChild(path);let [x,y]=point((r1+r2)/2,mid);g.appendChild(el('text',{x,y,class:`wheel-label ${type==='Tire'?'outer':''}`},type==='Tire'?'Tire '+item[0]:item[0]))})}
+function add(group,items,r1,r2,start,step,type){
+  let g=document.getElementById(group);
+  items.forEach((item,i)=>{
+    let a=start+i*step,b=a+step,mid=(a+b)/2;
+    let path=el('path',{d:wedge(r1,r2,a,b),fill:type==='Sector'?colors[i]:`hsl(${(i*28+310)%360} 85% 45%)`,class:'slice',tabindex:'0',role:'button','aria-label':`${type} ${item[0]}`});
+    let show=()=>{
+      document.querySelectorAll('.slice').forEach(s=>s.classList.remove('selected'));
+      path.classList.add('selected');
+      document.getElementById('kind').textContent=type;
+      document.getElementById('name').textContent=(type==='Tire'?'Tire ':'')+item[0];
+      document.getElementById('detail').textContent=item[1];
+      if(type==='Tire') highlightTireRelationships(item[0]);
+      else highlightSectorRelationships(item[0]);
+    };
+    path.addEventListener('click',show);
+    path.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show()}});
+    g.appendChild(path);
+    let [x,y]=point((r1+r2)/2,mid);
+    g.appendChild(el('text',{x,y,class:`wheel-label ${type==='Tire'?'outer':''}`},type==='Tire'?'Tire '+item[0]:item[0]));
+  });
+}
 add('inner',sectors,103,247,0,45,'Sector');add('outer',tires,250,365,-15,30,'Tire');
 
 const searchBox = document.createElement('input');
@@ -102,23 +118,45 @@ const architectureRelationships = {
 };
 
   
-// v2.3 — Development-only Tire relationship highlighting
-// Uses the existing v2.2 architectureRelationships definitions.
-function highlightTireRelationships(tireNumber) {
-  const related = architectureRelationships[String(tireNumber)] || [];
-  const paths = document.querySelectorAll('#outer path');
-
-  paths.forEach((path, index) => {
-    const tireId = String(tires[index]?.[0]);
-    const selected = tireId === String(tireNumber);
-    const connected = related.includes(tireId);
-
-    path.style.opacity = selected || connected ? '1' : '0.35';
-    path.style.strokeWidth = selected ? '5' : connected ? '3' : '';
+// v2.4 — Proposed visualization associations, NOT verified operational dependencies.
+// Tire 1000 intentionally has no sector association: specification unconfirmed.
+const sectorTireRelationships = {
+  Food: ['100','200','300','500'],
+  Shelter: ['100','200','300','800'],
+  Clothes: ['100','200','300','900'],
+  Knowledge: ['500','700','900','1100'],
+  Health: ['100','300','500','1200'],
+  Transportation: ['100','200','300','500'],
+  Security: ['300','400','600','700'],
+  Energy: ['100','200','300','500']
+};
+function resetRelationshipStyles(){
+  document.querySelectorAll('.slice').forEach(path=>{
+    path.style.opacity='';
+    path.style.strokeWidth='';
   });
 }
-
-
+function highlightSectorRelationships(sectorName){
+  resetRelationshipStyles();
+  const related=sectorTireRelationships[sectorName]||[];
+  document.querySelectorAll('#outer path').forEach((path,index)=>{
+    const connected=related.includes(String(tires[index][0]));
+    path.style.opacity=connected?'1':'0.35';
+    if(connected) path.style.strokeWidth='3';
+  });
+}
+// Preserve v2.3 Tire-to-Tire visualization, while clearing prior sector styles.
+function highlightTireRelationships(tireNumber){
+  resetRelationshipStyles();
+  const related=architectureRelationships[String(tireNumber)]||[];
+  document.querySelectorAll('#outer path').forEach((path,index)=>{
+    const tireId=String(tires[index][0]);
+    const selected=tireId===String(tireNumber);
+    const connected=related.includes(tireId);
+    path.style.opacity=selected||connected?'1':'0.35';
+    if(selected||connected) path.style.strokeWidth=selected?'5':'3';
+  });
+}
 </script>
 </body>
 </html>
