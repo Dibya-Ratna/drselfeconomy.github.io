@@ -18,7 +18,7 @@ main{max-width:1380px;margin:auto;padding:24px 18px 55px}.intro{text-align:cente
 <main>
 <section class="intro"><h1>Interactive Framework Dashboard</h1><p>Explore the eight essential sectors and the 12-Tire architecture. Select any segment to view its purpose.</p></section>
 <div class="layout"><section class="wheel-wrap" aria-label="Interactive Theory of Zero architecture"><svg id="wheel" class="wheel" viewBox="0 0 760 760" role="group" aria-label="Concentric wheel with eight sectors and twelve Tires"><circle cx="380" cy="380" r="367" fill="#061631" stroke="#4edbff" stroke-width="3"/><g id="outer"></g><g id="inner"></g><circle class="wheel-circle" cx="380" cy="380" r="102"/><text class="center-number" x="380" y="375">108</text><text class="center-sub" x="380" y="426">Theory of Zero</text></svg><div class="legend"><span><i class="dot" style="background:#3ac8f6"></i>8 essential sectors</span><span><i class="dot" style="background:#bd67f8"></i>12 protocol Tires</span></div></section>
-<aside class="panel" aria-live="polite"><div class="eyebrow" id="kind">Framework overview</div><h2 id="name">Select a segment</h2><p id="detail">The inner ring represents eight essential sectors. The outer ring represents 12 protocol Tires, positioned like the hours on a clock, beginning with Tire 1200 at 12 o'clock.</p><p class="note">Development visualization only. No real-time telemetry, resource allocations, or operational validation is implied.</p></aside></div>
+<aside class="panel" aria-live="polite"><div class="eyebrow" id="kind">Framework overview</div><h2 id="name">Select a segment</h2><p id="detail">The inner ring represents eight essential sectors. The outer ring represents 12 protocol Tires, positioned like the hours on a clock, beginning with Tire 1200 at 12 o'clock.</p><p id="relationship-detail" aria-live="polite"></p><p class="note">Development visualization only. No real-time telemetry, resource allocations, or operational validation is implied.</p></aside></div>
 <p class="footer">Theory of Zero — DibyaRatna SelfEconomy · Development preview</p>
 </main>
 <script>
@@ -150,7 +150,13 @@ document.querySelectorAll('#inner path').forEach((path, index) => {
     path.style.opacity=connected?'1':'0.12';
     if(connected) path.style.strokeWidth='3';
   });
-}
+  const explanation = document.getElementById('relationship-detail');
+  if (explanation) {
+    explanation.textContent =
+      'Proposed visualization associations for ' + sectorName +
+      ': Tire ' + related.join(', Tire ') +
+      '. These associations are illustrative, not verified operational dependencies.';
+  }}
 // Preserve v2.3 Tire-to-Tire visualization, while clearing prior sector styles.
 function highlightTireRelationships(tireNumber){
   resetRelationshipStyles();
@@ -174,7 +180,17 @@ function highlightTireRelationships(tireNumber){
     if (connected) path.style.strokeWidth = '3';
   });
 
-}
-</script>
+  const associatedSectors = Object.keys(sectorTireRelationships)
+    .filter(sector => sectorTireRelationships[sector].includes(selectedTire));
+
+  const explanation = document.getElementById('relationship-detail');
+  if (explanation) {
+    explanation.textContent =
+      'Proposed visualization associations for Tire ' + selectedTire +
+      '. Related Tires: ' + (related.length ? related.map(t => 'Tire ' + t).join(', ') : 'None specified') +
+      '. Associated sectors: ' + (associatedSectors.length ? associatedSectors.join(', ') : 'None specified') +
+      '. These associations are illustrative, not verified operational dependencies.';
+  }}
+}</script>
 </body>
 </html>
