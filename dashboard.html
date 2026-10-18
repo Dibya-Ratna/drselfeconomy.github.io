@@ -101,7 +101,7 @@ const tireOrder = [...tirePaths].sort((a, b) => {
 });
 
 tireOrder.forEach(path => {
-  outer.appendChild(path);
+    outer.insertBefore(path, outer.querySelector('text'));
 });  
   const centerCircle = document.querySelector('.wheel-circle');
 
