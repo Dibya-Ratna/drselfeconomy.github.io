@@ -88,7 +88,8 @@ function add(group,items,r1,r2,start,step,type){
   });
 }
 add('inner',sectors,103,247,0,45,'Sector');add('outer',tires,250,365,-15,30,'Tire');
-document.getElementById('outer').appendChild(document.querySelector('#outer .slice'));const centerCircle = document.querySelector('.wheel-circle');
+document.querySelectorAll('#outer .slice').forEach(el=>el.setAttribute('tabindex','0'));
+  const centerCircle = document.querySelector('.wheel-circle');
 
 function showFrameworkCenter() {
   document.querySelectorAll('.slice').forEach(
