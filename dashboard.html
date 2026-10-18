@@ -89,10 +89,20 @@ function add(group,items,r1,r2,start,step,type){
 }
 add('inner',sectors,103,247,0,45,'Sector');
 add('outer',tires,250,365,0,30,'Tire');
-document.querySelectorAll('#outer .slice').forEach(path => {
-  path.setAttribute('tabindex', '0');
+const outer = document.getElementById('outer');
+
+const tirePaths = [...outer.querySelectorAll('.slice')];
+
+const tireOrder = [...tirePaths].sort((a, b) => {
+  const getNumber = path =>
+    Number(path.getAttribute('aria-label').replace('Tire ', ''));
+
+  return getNumber(a) - getNumber(b);
+});
+
+tireOrder.forEach(path => {
+  outer.appendChild(path);
 });  
-  
   const centerCircle = document.querySelector('.wheel-circle');
 
 function showFrameworkCenter() {
