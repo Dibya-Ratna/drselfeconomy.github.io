@@ -242,7 +242,7 @@ function highlightTireRelationships(tireNumber){
   resetRelationshipStyles();
   const related=architectureRelationships[String(tireNumber)]||[];
   document.querySelectorAll('#outer path').forEach((path,index)=>{
-    const tireId=String(tires[index][0]);
+    const tireId = path.getAttribute('aria-label').replace('Tire ', '').trim();
     const selected=tireId===String(tireNumber);
     const connected=related.includes(tireId);
     path.style.opacity=selected||connected?'1':'0.12';
