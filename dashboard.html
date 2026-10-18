@@ -164,7 +164,7 @@ searchBox.addEventListener('input', () => {
     button.style.cssText = 'padding:10px;border:1px solid #307abf;border-radius:8px;background:#10346c;color:white;cursor:pointer;text-align:left';
     button.addEventListener('click', () => {
       const group = document.getElementById(item.type === 'Sector' ? 'inner' : 'outer');
-      const path = group.querySelectorAll('path')[item.index];
+      const path = [...group.querySelectorAll('path')].find(p => p.getAttribute('aria-label') === item.label);
       if (path) {
         path.dispatchEvent(new MouseEvent('click'));
         path.focus();
@@ -225,11 +225,18 @@ document.querySelectorAll('#inner path').forEach((path, index) => {
 });
 
   const related=sectorTireRelationships[sectorName]||[];
-  document.querySelectorAll('#outer path').forEach((path,index)=>{
-    const connected=related.includes(String(tires[index][0]));
-    path.style.opacity=connected?'1':'0.12';
-    if(connected) path.style.strokeWidth='3';
-  });
+  document.querySelectorAll('#outer path').forEach(path => {
+  const tireId = path.getAttribute('aria-label')
+    .replace('Tire ', '').trim();
+
+  const connected = related.includes(tireId);
+
+  path.style.opacity = connected ? '1' : '0.12';
+
+  if (connected) {
+    path.style.strokeWidth = '3';
+  }
+});
   const explanation = document.getElementById('relationship-detail');
   if (explanation) {
     explanation.textContent =
