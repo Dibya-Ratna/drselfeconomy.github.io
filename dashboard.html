@@ -87,7 +87,7 @@ function add(group,items,r1,r2,start,step,type){
     g.appendChild(el('text',{x,y,class:`wheel-label ${type==='Tire'?'outer':''}`},type==='Tire'?'Tire '+item[0]:item[0]));
   });
 }
-add('inner',sectors,103,247,0,45,'Sector');add('outer',tires,250,365,-15,30,'Tire');
+add('inner',sectors,103,247,0,45,'Sector');add('outer',tires.slice(1).concat(tires[0]),250,365,15,30,'Tire');
 const centerCircle = document.querySelector('.wheel-circle');
 
 function showFrameworkCenter() {
