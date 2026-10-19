@@ -156,7 +156,16 @@ searchBox.addEventListener('input', () => {
   })), ...tires.map((item, i) => ({
     label: 'Tire ' + item[0], type: 'Tire', index: i
   }))].filter(item => item.label.toLowerCase().includes(query));
-
+matches.sort((a, b) => {
+  if (a.type !== b.type) {
+    return a.type === 'Sector' ? -1 : 1;
+  }
+  if (a.type === 'Tire') {
+    return Number(a.label.replace('Tire ', '')) -
+           Number(b.label.replace('Tire ', ''));
+  }
+  return a.index - b.index;
+});
   matches.forEach(item => {
     const button = document.createElement('button');
     button.type = 'button';
