@@ -160,14 +160,28 @@ searchBox.addEventListener('input', () => {
   })), ...tires.map((item, i) => ({
     label: 'Tire ' + item[0], type: 'Tire', index: i
   }))].filter(item => item.label.toLowerCase().includes(query));
+
 matches.sort((a, b) => {
+  const getPriority = item => {
+    const label = item.label.toLowerCase();
+    if (label === query) return 0;
+    if (label.startsWith(query)) return 1;
+    return 2;
+  };
+
+  const priorityDifference = getPriority(a) - getPriority(b);
+  if (priorityDifference !== 0) return priorityDifference;
+
   if (a.type !== b.type) {
-    return a.type === 'Sector' ? -1 : 1;
+    const order = { Center: 0, Sector: 1, Tire: 2 };
+    return order[a.type] - order[b.type];
   }
+
   if (a.type === 'Tire') {
     return Number(a.label.replace('Tire ', '')) -
            Number(b.label.replace('Tire ', ''));
   }
+
   return a.index - b.index;
 });
   matches.forEach(item => {
