@@ -140,7 +140,7 @@ searchBox.style.cssText = 'display:block;width:100%;padding:12px;margin:0 0 16px
 
 const searchResults = document.createElement('div');
 searchResults.setAttribute('aria-live', 'polite');
-searchResults.style.cssText = 'display:grid;gap:8px;margin-bottom:16px';
+searchResults.style.cssText = 'display:grid;gap:8px;margin-bottom:16px;max-height:300px;overflow-y:auto;overscroll-behavior:contain';
 
 const panel = document.querySelector('.panel');
 panel.insertBefore(searchResults, panel.firstChild);
@@ -178,6 +178,39 @@ searchBox.addEventListener('input', () => {
   }
 });
 
+
+
+ // Keyboard navigation and selection for search results.
+searchBox.addEventListener('keydown', event => {
+  const buttons = [...searchResults.querySelectorAll('button')];
+  if (!buttons.length) return;
+
+  if (event.key === 'ArrowDown') {
+    event.preventDefault();
+    buttons[0].focus();
+  } else if (event.key === 'ArrowUp') {
+    event.preventDefault();
+    buttons[buttons.length - 1].focus();
+  } else if (event.key === 'Enter') {
+    event.preventDefault();
+    buttons[0].click();
+  }
+});
+
+searchResults.addEventListener('keydown', event => {
+  const buttons = [...searchResults.querySelectorAll('button')];
+  const index = buttons.indexOf(document.activeElement);
+  if (index === -1) return;
+
+  if (event.key === 'ArrowDown') {
+    event.preventDefault();
+    buttons[Math.min(index + 1, buttons.length - 1)].focus();
+  } else if (event.key === 'ArrowUp') {
+    event.preventDefault();
+    if (index === 0) searchBox.focus();
+    else buttons[index - 1].focus();
+  }
+});
 
 // Architecture Relationships v2.2
 // Development-only relationship definitions.
