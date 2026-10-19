@@ -175,7 +175,7 @@ clearSelectionButton.addEventListener('click', () => {
   });
 
   resetRelationshipStyles();
-  showFrameworkCenter();
+ if (!searchBox.value.trim()) showFrameworkCenter();
 });
 
 panel.insertBefore(clearSelectionButton, searchResults);
