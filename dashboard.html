@@ -242,9 +242,7 @@ matches.sort((a, b) => {
   if (path) {
     path.dispatchEvent(new MouseEvent('click'));
 
-    // Clear the search after selecting a result.
-    searchBox.value = '';
-    searchResults.replaceChildren();
+    
 
     // Keep keyboard focus on the selected wheel segment.
     path.focus();
