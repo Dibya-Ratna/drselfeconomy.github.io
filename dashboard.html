@@ -161,7 +161,24 @@ resetViewButton.addEventListener('click', () => {
 });
 
 panel.insertBefore(resetViewButton, searchResults);
+// v3.7 — Clear Selection button.
+const clearSelectionButton = document.createElement('button');
+clearSelectionButton.type = 'button';
+clearSelectionButton.textContent = 'Clear Selection';
 
+clearSelectionButton.style.cssText =
+  'padding:10px 16px;margin:0 0 16px 10px;border:1px solid #39d8ff;border-radius:8px;background:#10346c;color:white;cursor:pointer';
+
+clearSelectionButton.addEventListener('click', () => {
+  document.querySelectorAll('.slice').forEach(path => {
+    path.classList.remove('selected');
+  });
+
+  resetRelationshipStyles();
+  showFrameworkCenter();
+});
+
+panel.insertBefore(clearSelectionButton, searchResults);
 searchBox.addEventListener('input', () => {
   searchResults.replaceChildren();
   const query = searchBox.value.trim().toLowerCase();
