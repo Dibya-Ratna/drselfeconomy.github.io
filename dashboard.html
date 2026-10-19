@@ -244,6 +244,7 @@ searchBox.addEventListener('keydown', event => {
   }
 });
 
+
 searchResults.addEventListener('keydown', event => {
   const buttons = [...searchResults.querySelectorAll('button')];
   const index = buttons.indexOf(document.activeElement);
@@ -251,11 +252,10 @@ searchResults.addEventListener('keydown', event => {
 
   if (event.key === 'ArrowDown') {
     event.preventDefault();
-    buttons[Math.min(index + 1, buttons.length - 1)].focus();
+    buttons[(index + 1) % buttons.length].focus();
   } else if (event.key === 'ArrowUp') {
     event.preventDefault();
-    if (index === 0) searchBox.focus();
-    else buttons[index - 1].focus();
+    buttons[(index - 1 + buttons.length) % buttons.length].focus();
   }
 });
 
