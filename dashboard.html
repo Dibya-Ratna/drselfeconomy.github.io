@@ -245,6 +245,18 @@ searchResults.addEventListener('keydown', event => {
   }
 });
 
+// v3.3 — Close search results with Escape.
+function closeSearchResultsOnEscape(event) {
+  if (event.key !== 'Escape') return;
+
+  event.preventDefault();
+  searchResults.replaceChildren();
+  searchBox.focus();
+}
+
+searchBox.addEventListener('keydown', closeSearchResultsOnEscape);
+searchResults.addEventListener('keydown', closeSearchResultsOnEscape);
+
 // Architecture Relationships v2.2
 // Development-only relationship definitions.
 // These do not represent verified operational connections.
