@@ -1,370 +1,407 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Theory of Zero — DR SelfEconomy</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { background-color: #0f172a; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
-        .wheel-container { position: relative; width: 480px; height: 480px; margin: auto; }
-        .segment { transition: all 0.2s ease; cursor: pointer; }
-        .segment:hover { filter: brightness(1.2); }
-        .segment.active { stroke: #38bdf8; stroke-width: 3px; filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.9)); }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Theory of Zero | Interactive Dashboard</title>
+<style>
+:root{color-scheme:dark;--bg:#06132e;--panel:#0b2146;--line:#2b77bd;--cyan:#39d8ff;--text:#eef7ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 15%,#153e83,var(--bg) 65%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px max(18px,4vw);border-bottom:1px solid #286bb6;background:#06112c}header strong{font-size:1.15rem}header small{display:block;color:#a9c5e7}a{color:#7de7ff}header a{text-decoration:none}
+main{max-width:1380px;margin:auto;padding:24px 18px 55px}.intro{text-align:center}.intro h1{margin:0;font-size:clamp(1.8rem,4vw,3rem)}.intro p{color:#b9d5ed;margin:8px auto 20px;max-width:750px}
+.layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(270px,.8fr);gap:22px;align-items:start}.wheel-wrap{background:linear-gradient(145deg,#0b2b61,#071833);border:1px solid #2a72bb;border-radius:22px;padding:14px;min-width:0;box-shadow:0 0 35px #006fff25}.wheel{display:block;width:100%;height:auto;max-width:760px;margin:auto}.slice{cursor:pointer;stroke:#b6f4ff;stroke-width:1.5;transition:filter .15s}.slice:hover,.slice:focus{filter:brightness(1.35);outline:none;stroke:#fff;stroke-width:3}.slice.selected{stroke:#fff;stroke-width:4;filter:brightness(1.18)}.wheel-label{pointer-events:none;fill:#fff;font-weight:700;text-anchor:middle;dominant-baseline:middle;font-size:12px}.wheel-label.outer{font-size:10px}.wheel-circle{fill:#061632;stroke:#5ee9ff;stroke-width:4}.center-number{font-size:69px;fill:#fff;font-weight:850;text-anchor:middle;dominant-baseline:middle;letter-spacing:-5px}.center-sub{font-size:10px;fill:#9ddfff;text-anchor:middle}
+.panel{background:linear-gradient(160deg,#10346c,#081a38);border:1px solid #307abf;border-radius:20px;padding:24px;min-height:300px}.panel .eyebrow{color:#67dfff;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}.panel h2{font-size:1.55rem;margin:14px 0}.panel p{line-height:1.65;color:#d1e7fa}.note{margin-top:16px;color:#a7c7e4;font-size:.86rem}.legend{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:15px 0 0;font-size:.9rem;color:#c9e8ff}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px}.footer{text-align:center;color:#a8c4df;margin-top:30px;font-size:.85rem}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.panel{min-height:210px;padding:20px}main{padding:20px 10px 40px}.wheel-wrap{padding:5px}.wheel-label.outer{font-size:9px}}
+#wheel path:focus-visible {
+  outline: none;
+  stroke: #ffffff !important;
+  stroke-width: 6 !important;
+  filter: drop-shadow(0 0 6px #39d8ff);
+}
+
+#wheel .wheel-circle:focus,
+#wheel .wheel-circle:focus-visible {
+  outline: none !important;
+  stroke: #ffffff !important;
+  stroke-width: 6 !important;
+  filter: drop-shadow(0 0 6px #39d8ff);
+}
+</style>
 </head>
-<body class="min-h-screen p-4 md:p-8 flex flex-col justify-between">
+<body>
+<header><div><strong>Theory of Zero</strong><small>DibyaRatna SelfEconomy</small></div><span aria-label="Current page: Interactive Dashboard">Interactive Dashboard</span></header>
+<main>
+<section class="intro"><h1>Interactive Framework Dashboard</h1><p>Explore the eight essential sectors and the 12-Tire architecture. Select any segment to view its purpose.</p></section>
+  <p class="keyboard-help">Keyboard navigation: Press Tab to move between sectors and Tires. Press Enter or Space to select a segment. The highlighted outline shows keyboard focus.</p>
+<div class="layout"><section class="wheel-wrap" aria-label="Interactive Theory of Zero architecture"><svg id="wheel" class="wheel" viewBox="0 0 760 760" role="group" aria-label="Concentric wheel with eight sectors and twelve Tires"><circle cx="380" cy="380" r="367" fill="#061631" stroke="#4edbff" stroke-width="3"/><g id="outer"></g><g id="inner"></g><circle class="wheel-circle" cx="380" cy="380" r="102"
+  tabindex="0"
+  role="button"
+  aria-label="108 Framework Control Center"
+  style="cursor:pointer"/>
+<defs>
+  <clipPath id="center-logo-clip">
+    <circle cx="380" cy="380" r="100"/>
+  </clipPath>
+</defs>
+<image
+  href="Radiant_108_Circular_Dashboard_v2.png.png"
+  
+x="290"
+y="290"
+width="180"
+height="180"
+preserveAspectRatio="xMidYMid meet"
 
-    <!-- Header -->
-    <header class="max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between border-b border-slate-800 pb-4 mb-6">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center overflow-hidden">
-                <span class="text-cyan-400 font-bold text-lg">R</span>
-            </div>
-            <h1 class="text-2xl font-bold tracking-tight text-cyan-400">Theory of Zero <span class="text-slate-400 font-normal text-lg">— DR SelfEconomy</span></h1>
-        </div>
-        <nav class="flex gap-6 text-sm text-slate-400 mt-3 sm:mt-0">
-            <a href="https://github.com/Dibya-Ratna/drselfeconomy.github.io" target="_blank" class="hover:text-cyan-400 transition">GitHub Repository</a>
-        </nav>
-    </header>
+  clip-path="url(#center-logo-clip)"
+  style="pointer-events:none"
+/>
+</svg><div class="legend"><span><i class="dot" style="background:#3ac8f6"></i>8 essential sectors</span><span><i class="dot" style="background:#bd67f8"></i>12 protocol Tires</span></div></section>
+<aside class="panel" aria-live="polite"><div class="eyebrow" id="kind">Framework overview</div><h2 id="name">Select a segment</h2><p id="detail">The inner ring represents eight essential sectors. The outer ring represents 12 protocol Tires, positioned like the hours on a clock, beginning with Tire 1200 at 12 o'clock.</p><p id="relationship-detail" aria-live="polite"></p><p class="note">Development visualization only. No real-time telemetry, resource allocations, or operational validation is implied.</p></aside></div>
+<p class="footer">Theory of Zero — DibyaRatna SelfEconomy · Development preview</p>
+</main>
+<script>
+const NS='http://www.w3.org/2000/svg',cx=380,cy=380;
+const sectors=[['Food','Essential food production and access'],['Shelter','Essential shelter access'],['Clothes','Essential clothing access'],['Knowledge','Knowledge and learning access'],['Health','Essential health services'],['Transportation','Essential mobility and transit'],['Security','Essential safety and security'],['Energy','Essential energy access']];
+const tires=[['1200','Biophilic medical node and restorative progress telemetry'],['100','Primary operations and physical delivery'],['200','Operational coordination and anti-oscillation'],['300','Operational control and optimization'],['400','Cryptographic watchdog and privacy auditing'],['500','Forward intelligence and forecasting'],['600','Policy and governance'],['700','Inter-Tire messaging and transmission'],['800','Asset Equilibrium Transitioning'],['900','Discretionary contribution engine (STRE)'],['1000','Protocol Tire 1000 — specification to be confirmed'],['1100','Skill-to-Task Routing Engine (STRE)']];
+const colors=['#00a96c','#f7931e','#e52e75','#7240e4','#006cd6','#00a4b7','#f1ae1b','#0879ce'];
+function point(r,a){let t=(a-90)*Math.PI/180;return [cx+r*Math.cos(t),cy+r*Math.sin(t)]}
+function wedge(r1,r2,a,b){let p1=point(r2,a),p2=point(r2,b),p3=point(r1,b),p4=point(r1,a);return `M ${p1} A ${r2} ${r2} 0 0 1 ${p2} L ${p3} A ${r1} ${r1} 0 0 0 ${p4} Z`}
+function el(tag,attrs,text){let e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(text!==undefined)e.textContent=text;return e}
+function add(group,items,r1,r2,start,step,type){
+  let g=document.getElementById(group);
+  items.forEach((item,i)=>{
+    let a=start+i*step,b=a+step,mid=(a+b)/2;
+    let path=el('path',{d:wedge(r1,r2,a,b),fill:type==='Sector'?colors[i]:`hsl(${(i*28+310)%360} 85% 45%)`,class:'slice',tabindex:'0',role:'button','aria-label':`${type} ${item[0]}`});
+    let show=()=>{
+      document.querySelectorAll('.slice').forEach(s=>s.classList.remove('selected'));
+      path.classList.add('selected');
+      document.getElementById('kind').textContent=type;
+      document.getElementById('name').textContent=(type==='Tire'?'Tire ':'')+item[0];
+      document.getElementById('detail').textContent=item[1];
+      if(type==='Tire') highlightTireRelationships(item[0]);
+      else highlightSectorRelationships(item[0]);
+    };
+    path.addEventListener('click',show);
+    path.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show()}});
+    g.appendChild(path);
+    let [x,y]=point((r1+r2)/2,mid);
+    g.appendChild(el('text',{x,y,class:`wheel-label ${type==='Tire'?'outer':''}`},type==='Tire'?'Tire '+item[0]:item[0]));
+  });
+}
+add('inner',sectors,103,247,0,45,'Sector');
+add('outer',tires,250,365,-15,30,'Tire');
+const outer = document.getElementById('outer');
 
-    <!-- Main Content Area -->
-    <main class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        
-        <!-- Left Column: Interactive Wheel -->
-        <div class="lg:col-span-7 flex flex-col items-center justify-center bg-slate-900/60 p-6 rounded-2xl border border-slate-800 shadow-xl">
-            <div class="text-center mb-4">
-                <h2 class="text-lg font-semibold text-slate-200">Concentric Dual-Ring Architecture</h2>
-                <p class="text-xs text-slate-400">Click any Tire, Sector, or Center Hub to inspect specifications.</p>
-            </div>
+const tirePaths = [...outer.querySelectorAll('.slice')];
 
-            <!-- SVG Perfectly Round Dual Ring Wheel -->
-            <div class="wheel-container">
-                <svg viewBox="0 0 500 500" class="w-full h-full drop-shadow-2xl">
-                    <defs>
-                        <radialGradient id="hub-grad" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" stop-color="#1e293b"/>
-                            <stop offset="100%" stop-color="#0f172a"/>
-                        </radialGradient>
-                    </defs>
+const tireOrder = [...tirePaths].sort((a, b) => {
+  const getNumber = path =>
+    Number(path.getAttribute('aria-label').replace('Tire ', ''));
 
-                    <!-- Outer Ring: 12 Tires (Clockwise starting from top: Tire 1200 down to Tire 1100) -->
-                    <path id="tire-1200" class="segment" d="M 250,10 A 240,240 0 0,1 370,34 L 325,108 A 160,160 0 0,0 250,90 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 1200', 'tire')"/>
-                    <text x="310" y="62" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(30, 310, 62)">Tire 1200</text>
+  return getNumber(a) - getNumber(b);
+});
 
-                    <path id="tire-100" class="segment" d="M 370,34 A 240,240 0 0,1 460,130 L 377,169 A 160,160 0 0,0 325,108 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 100', 'tire')"/>
-                    <text x="415" y="105" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(60, 415, 105)">Tire 100</text>
+tireOrder.forEach(path => {
+    outer.insertBefore(path, outer.querySelector('text'));
+});  
+  const centerCircle = document.querySelector('.wheel-circle');
 
-                    <path id="tire-200" class="segment" d="M 460,130 A 240,240 0 0,1 490,250 L 410,250 A 160,160 0 0,0 377,169 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 200', 'tire')"/>
-                    <text x="450" y="195" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(90, 450, 195)">Tire 200</text>
+function showFrameworkCenter() {
+  document.querySelectorAll('.slice').forEach(
+    s => s.classList.remove('selected')
+  );  resetRelationshipStyles();
 
-                    <path id="tire-300" class="segment" d="M 490,250 A 240,240 0 0,1 460,370 L 377,331 A 160,160 0 0,0 410,250 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 300', 'tire')"/>
-                    <text x="445" y="310" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(120, 445, 310)">Tire 300</text>
+  document.getElementById('kind').textContent = 'FRAMEWORK CENTER';
+  document.getElementById('name').textContent = '108 — Theory of Zero';
+  document.getElementById('detail').textContent =
+    'Central navigation hub for the eight essential sectors and twelve protocol Tires. Select a sector or Tire to explore its proposed role.';
 
-                    <path id="tire-400" class="segment" d="M 460,370 A 240,240 0 0,1 370,466 L 325,392 A 160,160 0 0,0 377,331 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 400', 'tire')"/>
-                    <text x="390" y="405" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(150, 390, 405)">Tire 400</text>
+  const relationshipDetail =
+    document.getElementById('relationship-detail');
 
-                    <path id="tire-500" class="segment" d="M 370,466 A 240,240 0 0,1 250,490 L 250,410 A 160,160 0 0,0 325,392 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 500', 'tire')"/>
-                    <text x="300" y="452" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(180, 300, 452)">Tire 500</text>
+  if (relationshipDetail) {
+    relationshipDetail.textContent =
+      'Framework overview only. No real-time telemetry, resource allocation, or operational validation is implied.';
+  }
+}
 
-                    <path id="tire-600" class="segment" d="M 250,490 A 240,240 0 0,1 130,466 L 175,392 A 160,160 0 0,0 250,410 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 600', 'tire')"/>
-                    <text x="200" y="452" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(210, 200, 452)">Tire 600</text>
+centerCircle.addEventListener('click', showFrameworkCenter);
 
-                    <path id="tire-700" class="segment" d="M 130,466 A 240,240 0 0,1 40,370 L 123,331 A 160,160 0 0,0 175,392 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 700', 'tire')"/>
-                    <text x="110" y="405" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(240, 110, 405)">Tire 700</text>
+centerCircle.addEventListener('keydown', event => {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    showFrameworkCenter();
+  }
+});
+const searchBox = document.createElement('input');
+searchBox.type = 'search';
+searchBox.placeholder = 'Search sectors or Tires...';
+searchBox.setAttribute('aria-label', 'Search sectors or Tires');
+searchBox.style.cssText = 'display:block;width:100%;padding:12px;margin:0 0 16px;border:1px solid #39d8ff;border-radius:10px;background:#081a38;color:white;font-size:16px';
 
-                    <path id="tire-800" class="segment" d="M 40,370 A 240,240 0 0,1 10,250 L 90,250 A 160,160 0 0,0 123,331 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 800', 'tire')"/>
-                    <text x="55" y="310" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(270, 55, 310)">Tire 800</text>
+const searchResults = document.createElement('div');
+searchResults.setAttribute('aria-live', 'polite');
+searchResults.style.cssText = 'display:grid;gap:8px;margin-bottom:16px;max-height:300px;overflow-y:auto;overscroll-behavior:contain';
 
-                    <path id="tire-900" class="segment" d="M 10,250 A 240,240 0 0,1 40,130 L 123,169 A 160,160 0 0,0 90,250 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 900', 'tire')"/>
-                    <text x="50" y="195" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(300, 50, 195)">Tire 900</text>
+const panel = document.querySelector('.panel');
+panel.insertBefore(searchResults, panel.firstChild);
+panel.insertBefore(searchBox, searchResults);
 
-                    <path id="tire-1000" class="segment" d="M 40,130 A 240,240 0 0,1 130,34 L 175,108 A 160,160 0 0,0 123,169 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 1000', 'tire')"/>
-                    <text x="85" y="105" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(330, 85, 105)">Tire 1000</text>
+// v3.6 — Reset View button.
+const resetViewButton = document.createElement('button');
+resetViewButton.type = 'button';
+resetViewButton.textContent = 'Reset View';
+resetViewButton.style.cssText =
+  'padding:10px 16px;margin-bottom:16px;border:1px solid #39d8ff;border-radius:8px;background:#10346c;color:white;cursor:pointer';
 
-                    <path id="tire-1100" class="segment" d="M 130,34 A 240,240 0 0,1 250,10 L 250,90 A 160,160 0 0,0 175,108 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Tire 1100', 'tire')"/>
-                    <text x="190" y="62" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(360, 190, 62)">Tire 1100</text>
+resetViewButton.addEventListener('click', () => {
+  searchBox.value = '';
+  searchResults.replaceChildren();
+  showFrameworkCenter();
+  centerCircle.focus();
+});
 
-                    <!-- Inner Ring: 8 Core Sectors (Clockwise: Food, Shelter, Clothes, Knowledge, Health, Transportation, Security, Energy) -->
-                    <path id="sector-Food" class="segment" d="M 250,90 A 160,160 0 0,1 363,137 L 313,193 A 90,90 0 0,0 250,160 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Food', 'sector')"/>
-                    <text x="288" y="132" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Food</text>
+panel.insertBefore(resetViewButton, searchResults);
+// v3.7 — Clear Selection button.
+const clearSelectionButton = document.createElement('button');
+clearSelectionButton.type = 'button';
+clearSelectionButton.textContent = 'Clear Selection';
 
-                    <path id="sector-Shelter" class="segment" d="M 363,137 A 160,160 0 0,1 410,250 L 340,250 A 90,90 0 0,0 313,193 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Shelter', 'sector')"/>
-                    <text x="365" y="200" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Shelter</text>
+clearSelectionButton.style.cssText =
+  'padding:10px 16px;margin:0 0 16px 10px;border:1px solid #39d8ff;border-radius:8px;background:#10346c;color:white;cursor:pointer';
 
-                    <path id="sector-Clothes" class="segment" d="M 410,250 A 160,160 0 0,1 363,363 L 313,307 A 90,90 0 0,0 340,250 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Clothes', 'sector')"/>
-                    <text x="360" y="315" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Clothes</text>
+clearSelectionButton.addEventListener('click', () => {
+  document.querySelectorAll('.slice').forEach(path => {
+    path.classList.remove('selected');
+  });
 
-                    <path id="sector-Knowledge" class="segment" d="M 363,363 A 160,160 0 0,1 250,410 L 250,340 A 90,90 0 0,0 313,307 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Knowledge', 'sector')"/>
-                    <text x="300" y="375" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Knowledge</text>
+  resetRelationshipStyles();
+ if (!searchBox.value.trim()) showFrameworkCenter();
+});
 
-                    <path id="sector-Health" class="segment" d="M 250,410 A 160,160 0 0,1 137,363 L 187,307 A 90,90 0 0,0 250,340 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Health', 'sector')"/>
-                    <text x="210" y="375" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Health</text>
+panel.insertBefore(clearSelectionButton, searchResults);
+searchBox.addEventListener('input', () => {
+  searchResults.replaceChildren();
+  const query = searchBox.value.trim().toLowerCase();
+  if (!query) return;
 
-                    <path id="sector-Transportation" class="segment" d="M 137,363 A 160,160 0 0,1 90,250 L 160,250 A 90,90 0 0,0 187,307 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Transportation', 'sector')"/>
-                    <text x="135" y="315" fill="#38bdf8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(-45, 135, 315)">Transport</text>
+  const matches = [{
+  label: '108 Framework Control Center',
+  type: 'Center',
+  index: -1
+}, ...sectors.map((item, i) => ({
+    label: item[0], type: 'Sector', index: i
+  })), ...tires.map((item, i) => ({
+    label: 'Tire ' + item[0], type: 'Tire', index: i
+  }))].filter(item => item.label.toLowerCase().includes(query));
 
-                    <path id="sector-Security" class="segment" d="M 90,250 A 160,160 0 0,1 137,137 L 187,193 A 90,90 0 0,0 160,250 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Security', 'sector')"/>
-                    <text x="135" y="200" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Security</text>
+matches.sort((a, b) => {
+  const getPriority = item => {
+    const label = item.label.toLowerCase();
+    if (label === query) return 0;
+    if (label.startsWith(query)) return 1;
+    return 2;
+  };
 
-                    <path id="sector-Energy" class="segment" d="M 137,137 A 160,160 0 0,1 250,90 L 250,160 A 90,90 0 0,0 187,193 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" onclick="selectItem('Energy', 'sector')"/>
-                    <text x="210" y="132" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Energy</text>
+  const priorityDifference = getPriority(a) - getPriority(b);
+  if (priorityDifference !== 0) return priorityDifference;
 
-                    <!-- Center Hub Circle Background -->
-                    <circle cx="250" cy="250" r="90" fill="url(#hub-grad)" stroke="#38bdf8" stroke-width="2" class="cursor-pointer" onclick="selectItem('DR Logo', 'logo')"/>
-                </svg>
+  if (a.type !== b.type) {
+    const order = { Center: 0, Sector: 1, Tire: 2 };
+    return order[a.type] - order[b.type];
+  }
 
-                <!-- Perfectly Centered Clean Logo Hub Overlay -->
-                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div class="w-32 h-32 rounded-full flex items-center justify-center overflow-hidden bg-slate-950/80 border-2 border-cyan-400 shadow-2xl pointer-events-auto cursor-pointer" onclick="selectItem('DR Logo', 'logo')">
-                        <svg viewBox="0 0 250 250" class="w-24 h-24">
-                            <path d="M70 20 L70 220 M70 20 C180 20, 220 100, 70 140 M120 120 C180 150, 240 220, 240 240" stroke="#38bdf8" stroke-width="22" fill="none" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
+  if (a.type === 'Tire') {
+    return Number(a.label.replace('Tire ', '')) -
+           Number(b.label.replace('Tire ', ''));
+  }
 
-        <!-- Right Column: Interactive Info Panel -->
-        <div class="lg:col-span-5 bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col justify-between min-h-[500px]">
-            <div>
-                <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-                    <h3 id="panel-title" class="text-xl font-bold text-cyan-400">Theory of Zero Framework</h3>
-                    <span id="panel-badge" class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-full border border-slate-700">Core Architecture</span>
-                </div>
+  return a.index - b.index;
+});
+  matches.forEach(item => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = item.label;
+    button.style.cssText = 'padding:10px;border:1px solid #307abf;border-radius:8px;background:#10346c;color:white;cursor:pointer;text-align:left';
+    button.addEventListener('click', () => {
+      if (item.type === 'Center') {
+  showFrameworkCenter();
+  searchBox.value = '';
+  searchResults.replaceChildren();
+  centerCircle.focus();
+  return;
+}
+  const group = document.getElementById(
+    item.type === 'Sector' ? 'inner' : 'outer'
+  );
 
-                <div id="panel-content" class="space-y-4 text-sm text-slate-300">
-                    <div class="bg-slate-800/60 p-3.5 rounded-lg border-l-4 border-cyan-400">
-                        <h4 class="font-semibold text-cyan-300 mb-1">What is it?</h4>
-                        <p id="info-what">The Theory of Zero (DR SelfEconomy) is an open-source, cybernetic macroeconomic framework designed to eliminate systemic scarcity by anchoring economic output directly to essential physical resources.</p>
-                    </div>
-                    <div class="bg-slate-800/60 p-3.5 rounded-lg border-l-4 border-cyan-400">
-                        <h4 class="font-semibold text-cyan-300 mb-1">Why is it structured this way?</h4>
-                        <p id="info-why">Traditional monetary systems generate artificial scarcity and wealth concentration. This architecture decouples fundamental survival from currency fluctuation.</p>
-                    </div>
-                    <div class="bg-slate-800/60 p-3.5 rounded-lg border-l-4 border-cyan-400">
-                        <h4 class="font-semibold text-cyan-300 mb-1">How does it work?</h4>
-                        <p id="info-how">It coordinates via 12-Tire municipal frameworks, Solidity tribunal smart contracts, Circom zero-knowledge privacy verification, and Python Mesa agent-based simulations.</p>
-                    </div>
-                    <div class="bg-slate-800/60 p-3.5 rounded-lg border-l-4 border-cyan-400">
-                        <h4 class="font-semibold text-cyan-300 mb-1">Who operates it?</h4>
-                        <p id="info-who">Managed collectively by decentralized community nodes, open-source contributors, and automated protocol validators.</p>
-                    </div>
-                    <div class="bg-slate-800/60 p-3.5 rounded-lg border-l-4 border-cyan-400">
-                        <h4 class="font-semibold text-cyan-300 mb-1">Where is it implemented?</h4>
-                        <p id="info-where">Hosted openly on GitHub and deployed across municipal pilot networks and decentralized web infrastructure.</p>
-                    </div>
-                </div>
-            </div>
+  const path = [...group.querySelectorAll('path')].find(
+  p => p.getAttribute('aria-label') ===
+    (item.type === 'Sector' ? 'Sector ' + item.label : item.label)
+);
 
-            <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-slate-500 flex justify-between items-center">
-                <span>drselfeconomy.org</span>
-                <span class="text-cyan-400">Click wheel segments to inspect</span>
-            </div>
-        </div>
+  if (path) {
+    path.dispatchEvent(new MouseEvent('click'));
 
-    </main>
+    
 
-    <!-- Footer -->
-    <footer class="max-w-7xl mx-auto w-full text-center text-xs text-slate-500 border-t border-slate-800 pt-6 mt-8">
-        <p>DR SelfEconomy Project &bull; Open Source Macroeconomic Architecture &bull; <a href="https://github.com/Dibya-Ratna/drselfeconomy.github.io" target="_blank" class="text-cyan-400 hover:underline">View GitHub Repository</a></p>
-    </footer>
+    // Keep keyboard focus on the selected wheel segment.
+    path.focus();
+  }
+});
+    searchResults.appendChild(button);
+  });
 
-    <script>
-        const database = {
-            "DR Logo": {
-                badge: "Core Emblem",
-                what: "The official DR SelfEconomy emblem representing the sovereign cybernetic integration of human agency and resource equilibrium.",
-                why: "Serves as the visual anchor for trust, transparency, and decentralization across all municipal nodes.",
-                how: "Encapsulates the mathematical symmetry of the Theory of Zero framework.",
-                who: "Authored and maintained by project architect and open-source contributors.",
-                where: "Embedded across all digital portals, smart contracts, and official documentation."
-            },
-            "Food": {
-                badge: "Sector 1",
-                what: "Resource-backed distribution pipeline ensuring absolute nutritional baseline equilibrium across municipal nodes.",
-                why: "Decouples biological survival and nutrition from speculative monetary markets to eliminate food insecurity.",
-                how: "Operates via decentralized balancing algorithms tracking agricultural yields and local distribution.",
-                who: "Managed by municipal agricultural cooperatives and automated supply chains.",
-                where: "Implemented across local community food hubs and regional distribution networks."
-            },
-            "Shelter": {
-                badge: "Sector 2",
-                what: "Guarantees sustainable, modular, and energy-efficient habitation for every participant.",
-                why: "Housing is a fundamental biological requirement, not a speculative investment vehicle driving homelessness.",
-                how: "Utilizes decentralized registry contracts and resource-backed capacity allocation metrics.",
-                who: "Maintained by municipal housing cooperatives and ecological architecture nodes.",
-                where: "Integrated across residential microgrids and community housing trusts."
-            },
-            "Clothes": {
-                badge: "Sector 3",
-                what: "Governs circular textile production, durability standards, and closed-loop material flows.",
-                why: "Minimizes ecological waste and linear consumer exploitation through durable lifecycle tracking.",
-                how: "Implements standardized volumetric measurement and recycling incentive ledgers.",
-                who: "Operated by textile recycling collectives and sustainable production networks.",
-                where: "Distributed through community asset libraries and circular exchange hubs."
-            },
-            "Knowledge": {
-                badge: "Sector 4",
-                what: "Guarantees open, frictionless access to educational curricula, scientific research, and architectures.",
-                why: "Information asymmetry and paywalled education stifle human potential. Knowledge is a public good.",
-                how: "Hosted via decentralized open-access repositories and verifiable verification frameworks.",
-                who: "Contributed and governed by global researchers, educators, and open-source developers.",
-                where: "Distributed globally across peer-to-peer repositories and web portals like drselfeconomy.org."
-            },
-            "Health": {
-                badge: "Sector 5",
-                what: "Focuses on preventative care, wellness infrastructure, and universal access to medical resources.",
-                why: "Healthcare tied to ability-to-pay creates systemic vulnerability during public health crises.",
-                how: "Tracked securely through zero-knowledge privacy circuits (ConsumptionVerifier.circom).",
-                who: "Administered by healthcare practitioners and municipal wellness cooperatives.",
-                where: "Deployed across local health clinics and cryptographic privacy registries."
-            },
-            "Transportation": {
-                badge: "Sector 6",
-                what: "Optimizes low-emission, shared, and efficient mobility networks across municipal zones.",
-                why: "Eliminates congestion, pollution, and high economic friction caused by fossil-fuel dependency.",
-                how: "Powered by community resource availability, shared electric fleets, and demand routing algorithms.",
-                who: "Operated by public transit cooperatives and mobility engineering nodes.",
-                where: "Integrated across municipal transit grids and regional zero-emission corridors."
-            },
-            "Security": {
-                badge: "Sector 7",
-                what: "Maintains municipal safety, privacy, and protocol compliance across all network nodes.",
-                why: "Replaces corruptible centralized policing with unalterable cryptographic rules and transparent consensus.",
-                how: "Enforced via decentralized tribunal engines (Tire1200TribunalEngine.sol).",
-                who: "Maintained collectively through community oversight and automated smart contract execution.",
-                where: "Embedded directly into blockchain state transition layers and local arbitration committees."
-            },
-            "Energy": {
-                badge: "Sector 8",
-                what: "Coordinates decentralized renewable grids, storage allocation, and baseline power quotas.",
-                why: "Protects communities against energy monopolies, price shocks, and grid blackouts.",
-                how: "Balanced automatically through cybernetic feedback loops matching generation with municipal demand.",
-                who: "Managed by renewable microgrids, electrical engineers, and automated grid controllers.",
-                where: "Distributed across solar arrays, battery storage banks, and municipal microgrids."
-            },
-            "Tire 1200": {
-                badge: "Apex Tier",
-                what: "The apex tier of the self-economy, integrating all 8 core sectors with advanced automation.",
-                why: "Provides ultimate system stability and comprehensive resource equilibrium at scale.",
-                how: "Governed by master protocol contracts and zero-knowledge aggregate verification.",
-                who: "Managed by global network consensus and decentralized municipal assemblies.",
-                where: "Implemented at the highest administrative tier of the DR SelfEconomy framework."
-            },
-            "Tire 1100": {
-                badge: "Advanced Tier",
-                what: "Advanced municipal resource coordination tier for regional surplus balancing.",
-                why: "Ensures seamless interoperability between local sectors and broader economic layers.",
-                how: "Automated via cross-chain messaging and multi-tier cryptographic proofs.",
-                who: "Operated by regional council nodes and automated balancing contracts.",
-                where: "Deeds deployed across regional distribution networks."
-            },
-            "Tire 1000": {
-                badge: "Tier 1000",
-                what: "Macro-economic resource indexing tier tracking baseline societal consumption metrics.",
-                why: "Maintains precise statistical visibility into resource flow and systemic efficiency.",
-                how: "Calculated continuously via Python Mesa simulation models and ledger telemetry.",
-                who: "Monitored by economic analysts and automated audit contracts.",
-                where: "Integrated into core ledger reporting modules."
-            },
-            "Tire 900": {
-                badge: "Tier 900",
-                what: "Mid-to-high municipal tier managing infrastructure maintenance and public works.",
-                why: "Guarantees physical upkeep of vital civic infrastructure without monetary debt.",
-                how: "Triggered automatically when wear-and-tear thresholds are verified on-chain.",
-                who: "Executed by public works cooperatives and maintenance smart contracts.",
-                where: "Deployed across municipal physical assets."
-            },
-            "Tire 800": {
-                badge: "Tier 800",
-                what: "Community resource allocation tier handling localized supply chain logistics.",
-                why: "Streamlines distribution efficiency between production nodes and end participants.",
-                how: "Optimized through algorithmic routing and RFID-tagged packaging metrics.",
-                who: "Managed by local logistics coordinators and automated depots.",
-                where: "Active within municipal neighborhood distribution centers."
-            },
-            "Tire 700": {
-                badge: "Tier 700",
-                what: "Cooperative governance tier for democratic resource prioritization.",
-                why: "Ensures community voice and participatory feedback directly shape resource allocation.",
-                how: "Votes recorded and executed via decentralized governance contracts.",
-                who: "Participated in by active community members and delegates.",
-                where: "Hosted on-chain and through local assembly portals."
-            },
-            "Tire 600": {
-                badge: "Tier 600",
-                what: "Baseline quota verification tier ensuring no participant falls below survival thresholds.",
-                why: "Guarantees the core tenet of zero systemic scarcity.",
-                how: "Verified privately using Circom zero-knowledge circuits (ConsumptionVerifier.circom).",
-                who: "Validated autonomously by cryptographic proof verification nodes.",
-                where: "Executed on decentralized smart contract execution layers."
-            },
-            "Tire 500": {
-                badge: "Tier 500",
-                what: "Emergency reserve and redundancy tier for unexpected environmental or supply shocks.",
-                why: "Provides robust resilience against natural disasters or supply disruptions.",
-                how: "Maintained via locked reserve pools released automatically upon emergency oracle signals.",
-                who: "Supervised by emergency response nodes and safety tribunals.",
-                where: "Distributed across secure municipal reserve nodes."
-            },
-            "Tire 400": {
-                badge: "Tier 400",
-                what: "Education and skill accreditation tier for sector participation.",
-                why: "Ensures all participants are equipped with the knowledge required to operate municipal nodes.",
-                how: "Tracked through decentralized credential registries and open-source curricula.",
-                who: "Facilitated by educators, mentors, and verification protocols.",
-                where: "Hosted across digital learning nodes and community workshops."
-            },
-            "Tire 300": {
-                badge: "Tier 300",
-                what: "Ecological monitoring and waste recycling tier.",
-                why: "Enforces zero-waste closed-loop material cycles across all production sectors.",
-                how: "Tracked via sensor telemetry and automated recycling verification contracts.",
-                who: "Maintained by ecological monitoring cooperatives and sanitation nodes.",
-                where: "Integrated across municipal waste management and recycling hubs."
-            },
-            "Tire 200": {
-                badge: "Tier 200",
-                what: "Identity and credential management tier ensuring sovereign participant privacy.",
-                why: "Protects individual privacy while maintaining verifiable eligibility for sector resources.",
-                how: "Secured using zero-knowledge identity primitives and cryptographic keys.",
-                who: "Controlled entirely by the individual participant.",
-                where: "Stored locally on participant devices and verified cryptographically."
-            },
-            "Tire 100": {
-                badge: "Foundation Tier",
-                what: "The foundational genesis tier of the DR SelfEconomy architecture.",
-                why: "Establishes the immutable genesis parameters and baseline physical axioms of the system.",
-                how: "Anchored permanently in the genesis block and core protocol specifications.",
-                who: "Authored by project founders and foundational protocol developers.",
-                where: "Hardcoded into repository genesis files and core smart contracts."
-            }
-        };
+  if (!matches.length) {
+    searchResults.textContent = 'No matching sectors or Tires.';
+  }
+});
 
-        function selectItem(name, type) {
-            document.querySelectorAll('.segment').forEach(el => el.classList.remove('active'));
-            let elementId = type === 'sector' ? `sector-${name}` : `tire-${name.toLowerCase().replace(' ', '-')}`;
-            let el = document.getElementById(elementId);
-            if (el) el.classList.add('active');
 
-            let data = database[name] || {
-                badge: "Architecture Spec",
-                what: `${name} component within the Theory of Zero framework.`,
-                why: "Contributes to municipal resource equilibrium and systemic scarcity elimination.",
-                how: "Governed by cybernetic balancing and smart contract verification.",
-                who: "Managed by decentralized community nodes.",
-                where: "Implemented across DR SelfEconomy infrastructure."
-            };
 
-            document.getElementById('panel-title').innerText = name;
-            document.getElementById('panel-badge').innerText = data.badge;
-            document.getElementById('info-what').innerText = data.what;
-            document.getElementById('info-why').innerText = data.why;
-            document.getElementById('info-how').innerText = data.how;
-            document.getElementById('info-who').innerText = data.who;
-            document.getElementById('info-where').innerText = data.where;
-        }
-    </script>
+ // Keyboard navigation and selection for search results.
+searchBox.addEventListener('keydown', event => {
+  const buttons = [...searchResults.querySelectorAll('button')];
+  if (!buttons.length) return;
+
+  if (event.key === 'ArrowDown') {
+    event.preventDefault();
+    buttons[0].focus();
+  } else if (event.key === 'ArrowUp') {
+    event.preventDefault();
+    buttons[buttons.length - 1].focus();
+  } else if (event.key === 'Enter') {
+    event.preventDefault();
+    buttons[0].click();
+  }
+});
+
+
+searchResults.addEventListener('keydown', event => {
+  const buttons = [...searchResults.querySelectorAll('button')];
+  const index = buttons.indexOf(document.activeElement);
+  if (index === -1) return;
+
+  if (event.key === 'ArrowDown') {
+    event.preventDefault();
+    buttons[(index + 1) % buttons.length].focus();
+  } else if (event.key === 'ArrowUp') {
+    event.preventDefault();
+    buttons[(index - 1 + buttons.length) % buttons.length].focus();
+  }
+});
+
+// v3.3 — Close search results with Escape.
+function closeSearchResultsOnEscape(event) {
+  if (event.key !== 'Escape') return;
+
+  event.preventDefault();
+  searchResults.replaceChildren();
+  searchBox.focus();
+}
+
+searchBox.addEventListener('keydown', closeSearchResultsOnEscape);
+searchResults.addEventListener('keydown', closeSearchResultsOnEscape);
+
+// Architecture Relationships v2.2
+// Development-only relationship definitions.
+// These do not represent verified operational connections.
+const architectureRelationships = {
+  "100": ["200", "300"],
+  "200": ["100", "300"],
+  "300": ["100", "200", "400"],
+  "400": ["300", "600"],
+  "500": ["300", "600"],
+  "600": ["400", "500", "700"],
+  "700": ["600", "800", "900"],
+  "800": ["700", "900"],
+  "900": ["700", "800"],
+  "1000": [],
+  "1100": [],
+  "1200": []
+};
+
+  
+// v2.4 — Proposed visualization associations, NOT verified operational dependencies.
+// Tire 1000 intentionally has no sector association: specification unconfirmed.
+const sectorTireRelationships = {
+  Food: ['100','200','300','500'],
+  Shelter: ['100','200','300','800'],
+  Clothes: ['100','200','300','900'],
+  Knowledge: ['500','700','900','1100'],
+  Health: ['100','300','500','1200'],
+  Transportation: ['100','200','300','500'],
+  Security: ['300','400','600','700'],
+  Energy: ['100','200','300','500']
+};
+function resetRelationshipStyles(){
+  document.querySelectorAll('.slice').forEach(path=>{
+    path.style.opacity='';
+    path.style.strokeWidth='';
+  });
+}
+function highlightSectorRelationships(sectorName){
+  resetRelationshipStyles();
+document.querySelectorAll('#inner path').forEach((path, index) => {
+  const selected = sectors[index][0] === sectorName;
+  path.style.opacity = selected ? '1' : '0.12';
+  if (selected) path.style.strokeWidth = '5';
+});
+
+  const related=sectorTireRelationships[sectorName]||[];
+  document.querySelectorAll('#outer path').forEach(path => {
+  const tireId = path.getAttribute('aria-label')
+    .replace('Tire ', '').trim();
+
+  const connected = related.includes(tireId);
+
+  path.style.opacity = connected ? '1' : '0.12';
+
+  if (connected) {
+    path.style.strokeWidth = '3';
+  }
+});
+  const explanation = document.getElementById('relationship-detail');
+  if (explanation) {
+    explanation.textContent =
+      'Proposed visualization associations for ' + sectorName +
+      ': Tire ' + related.join(', Tire ') +
+      '. These associations are illustrative, not verified operational dependencies.';
+  }}
+// Preserve v2.3 Tire-to-Tire visualization, while clearing prior sector styles.
+function highlightTireRelationships(tireNumber){
+  resetRelationshipStyles();
+  const related=architectureRelationships[String(tireNumber)]||[];
+  document.querySelectorAll('#outer path').forEach((path,index)=>{
+    const tireId = path.getAttribute('aria-label').replace('Tire ', '').trim();
+    const selected=tireId===String(tireNumber);
+    const connected=related.includes(tireId);
+    path.style.opacity=selected||connected?'1':'0.12';
+    if(selected||connected) path.style.strokeWidth=selected?'5':'3';
+  });
+
+  // Highlight sectors associated with the selected Tire.
+  const selectedTire = String(tireNumber);
+  document.querySelectorAll('#inner path').forEach((path, index) => {
+    const sectorName = sectors[index][0];
+    const connected = (sectorTireRelationships[sectorName] || [])
+      .includes(selectedTire);
+
+    path.style.opacity = connected ? '1' : '0.12';
+    if (connected) path.style.strokeWidth = '3';
+  });
+
+  const associatedSectors = Object.keys(sectorTireRelationships)
+    .filter(sector => sectorTireRelationships[sector].includes(selectedTire));
+
+  const explanation = document.getElementById('relationship-detail');
+  if (explanation) {
+    explanation.textContent =
+      'Proposed visualization associations for Tire ' + selectedTire +
+      '. Related Tires: ' + (related.length ? related.map(t => 'Tire ' + t).join(', ') : 'None specified') +
+      '. Associated sectors: ' + (associatedSectors.length ? associatedSectors.join(', ') : 'None specified') +
+      '. These associations are illustrative, not verified operational dependencies.';
+  }
+}
+</script>
 </body>
 </html>
