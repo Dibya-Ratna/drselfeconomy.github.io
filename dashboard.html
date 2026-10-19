@@ -146,6 +146,22 @@ const panel = document.querySelector('.panel');
 panel.insertBefore(searchResults, panel.firstChild);
 panel.insertBefore(searchBox, searchResults);
 
+// v3.6 — Reset View button.
+const resetViewButton = document.createElement('button');
+resetViewButton.type = 'button';
+resetViewButton.textContent = 'Reset View';
+resetViewButton.style.cssText =
+  'padding:10px 16px;margin-bottom:16px;border:1px solid #39d8ff;border-radius:8px;background:#10346c;color:white;cursor:pointer';
+
+resetViewButton.addEventListener('click', () => {
+  searchBox.value = '';
+  searchResults.replaceChildren();
+  showFrameworkCenter();
+  centerCircle.focus();
+});
+
+panel.insertBefore(resetViewButton, searchResults);
+
 searchBox.addEventListener('input', () => {
   searchResults.replaceChildren();
   const query = searchBox.value.trim().toLowerCase();
