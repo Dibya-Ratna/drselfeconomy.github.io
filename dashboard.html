@@ -151,7 +151,11 @@ searchBox.addEventListener('input', () => {
   const query = searchBox.value.trim().toLowerCase();
   if (!query) return;
 
-  const matches = [...sectors.map((item, i) => ({
+  const matches = [{
+  label: '108 Framework Control Center',
+  type: 'Center',
+  index: -1
+}, ...sectors.map((item, i) => ({
     label: item[0], type: 'Sector', index: i
   })), ...tires.map((item, i) => ({
     label: 'Tire ' + item[0], type: 'Tire', index: i
@@ -172,6 +176,13 @@ matches.sort((a, b) => {
     button.textContent = item.label;
     button.style.cssText = 'padding:10px;border:1px solid #307abf;border-radius:8px;background:#10346c;color:white;cursor:pointer;text-align:left';
     button.addEventListener('click', () => {
+      if (item.type === 'Center') {
+  showFrameworkCenter();
+  searchBox.value = '';
+  searchResults.replaceChildren();
+  centerCircle.focus();
+  return;
+}
   const group = document.getElementById(
     item.type === 'Sector' ? 'inner' : 'outer'
   );
