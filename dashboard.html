@@ -177,8 +177,9 @@ matches.sort((a, b) => {
   );
 
   const path = [...group.querySelectorAll('path')].find(
-    p => p.getAttribute('aria-label') === item.label
-  );
+  p => p.getAttribute('aria-label') ===
+    (item.type === 'Sector' ? 'Sector ' + item.label : item.label)
+);
 
   if (path) {
     path.dispatchEvent(new MouseEvent('click'));
