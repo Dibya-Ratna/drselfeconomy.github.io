@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Theory of Zero | Interactive Dashboard v3.8.2 Mobile Preview</title>
+<style>
+:root{color-scheme:dark;--bg:#06132e;--panel:#0b2146;--line:#2b77bd;--cyan:#39d8ff;--text:#eef7ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 15%,#153e83,var(--bg) 65%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px max(18px,4vw);border-bottom:1px solid #286bb6;background:#06112c}header strong{font-size:1.15rem}header small{display:block;color:#a9c5e7}a{color:#7de7ff}header a{text-decoration:none}
+main{max-width:1380px;margin:auto;padding:24px 18px 55px}.intro{text-align:center}.intro h1{margin:0;font-size:clamp(1.8rem,4vw,3rem)}.intro p{color:#b9d5ed;margin:8px auto 20px;max-width:750px}
+.layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(270px,.8fr);gap:22px;align-items:start}.wheel-wrap{background:linear-gradient(145deg,#0b2b61,#071833);border:1px solid #2a72bb;border-radius:22px;padding:14px;min-width:0;box-shadow:0 0 35px #006fff25}.wheel{display:block;width:100%;height:auto;max-width:760px;margin:auto}.slice{cursor:pointer;stroke:#b6f4ff;stroke-width:1.5;transition:filter .15s}.slice:hover,.slice:focus{filter:brightness(1.35);outline:none;stroke:#fff;stroke-width:3}.slice.selected{stroke:#fff;stroke-width:4;filter:brightness(1.18)}.wheel-label{pointer-events:none;fill:#fff;font-weight:700;text-anchor:middle;dominant-baseline:middle;font-size:12px}.wheel-label.outer{font-size:10px}.wheel-circle{fill:#061632;stroke:#5ee9ff;stroke-width:4}.center-number{font-size:69px;fill:#fff;font-weight:850;text-anchor:middle;dominant-baseline:middle;letter-spacing:-5px}.center-sub{font-size:10px;fill:#9ddfff;text-anchor:middle}
+.panel{background:linear-gradient(160deg,#10346c,#081a38);border:1px solid #307abf;border-radius:20px;padding:24px;min-height:300px}.panel .eyebrow{color:#67dfff;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}.panel h2{font-size:1.55rem;margin:14px 0}.panel p{line-height:1.65;color:#d1e7fa}.note{margin-top:16px;color:#a7c7e4;font-size:.86rem}.legend{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:15px 0 0;font-size:.9rem;color:#c9e8ff}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px}.footer{text-align:center;color:#a8c4df;margin-top:30px;font-size:.85rem}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.panel{min-height:210px;padding:20px}main{padding:20px 10px 40px}.wheel-wrap{padding:5px}.wheel-label.outer{font-size:9px}}
+#wheel path:focus-visible {
+  outline: none;
+  stroke: #ffffff !important;
+  stroke-width: 6 !important;
+  filter: drop-shadow(0 0 6px #39d8ff);
+}
+
+#wheel .wheel-circle:focus,
+#wheel .wheel-circle:focus-visible {
+  outline: none !important;
+  stroke: #ffffff !important;
+  stroke-width: 6 !important;
+  filter: drop-shadow(0 0 6px #39d8ff);
+}
+
+/* v3.8 mobile-first presentation; desktop visualization logic retained. */
+.menu-toggle{display:none;background:#10346c;color:#eef7ff;border:1px solid #39d8ff;border-radius:10px;font-size:1.5rem;padding:5px 12px;cursor:pointer}
+.mobile-menu{max-width:1380px;margin:0 auto;background:#081a38;border:1px solid #307abf;border-radius:0 0 16px 16px;padding:14px}
+.mobile-menu[hidden],.mobile-about[hidden],.back-to-wheel[hidden]{display:none!important}
+.mobile-menu a{display:block;color:#eef7ff;text-decoration:none;padding:13px;border-radius:8px}
+.mobile-menu a:hover,.mobile-menu a:focus-visible{background:#10346c}
+.menu-heading{margin:14px 10px 5px;color:#67dfff;font-weight:700}
+.menu-note{margin:8px 10px;color:#a7c7e4;font-size:.85rem}
+.back-to-wheel{padding:10px 14px;margin:0 0 18px;background:#10346c;border:1px solid #39d8ff;color:#fff;border-radius:10px;cursor:pointer;font-size:1rem}
+.mobile-about{background:#0b2146;border:1px solid #307abf;border-radius:18px;padding:18px;margin-top:20px}
+@media(max-width:850px){
+ header{padding:12px 16px;gap:10px}
+ header strong{font-size:1.08rem}
+ header small{font-size:.83rem}
+ .desktop-page-label{display:none}
+ .menu-toggle{display:block}
+ main{padding:10px 10px 35px}
+ .intro h1{font-size:1.15rem}
+ .intro p{font-size:.85rem;margin:4px auto 10px}
+ .keyboard-help{display:none}
+ .layout{display:flex;flex-direction:column;gap:12px}
+ .wheel-wrap{order:2;width:100%;padding:4px}
+ .panel{order:1;width:100%;padding:12px;min-height:0}
+ .panel:not(.detail-active) .eyebrow,.panel:not(.detail-active) h2,.panel:not(.detail-active) #detail,.panel:not(.detail-active) #relationship-detail,.panel:not(.detail-active) .note{display:none}
+ .panel.detail-active{order:1;min-height:calc(100dvh - 145px);padding:18px}
+ .panel.detail-active #detail{font-size:1.05rem}
+ .panel.detail-active .note{border-top:1px solid #307abf;padding-top:14px}
+ .wheel-wrap.detail-hidden{display:none}
+ .wheel-label{font-size:15px}
+ .wheel-label.outer{font-size:12px}
+ .legend{gap:12px;font-size:.78rem}
+ .panel input[type=search]{margin-bottom:8px!important}
+ .footer{font-size:.75rem}
+}
+
+/* v3.8.1 — phone layout: search, wheel, then controls; no repeated intro. */
+@media(max-width:850px){
+  .intro,.keyboard-help{display:none!important}
+  main{padding:6px 8px 24px}
+  .layout{gap:5px}
+  .panel{padding:8px 10px 4px;background:transparent;border:0;box-shadow:none}
+  .panel input[type=search]{margin:0!important;border-radius:12px!important}
+  .panel:not(.detail-active) #reset-view-controls{margin:8px 0 0}
+  .wheel-wrap{padding:2px;border-radius:16px}
+  .wheel{width:100%;height:auto}
+  .legend{margin:3px 0 1px}
+  .panel.detail-active{padding:12px;min-height:calc(100dvh - 110px);background:linear-gradient(160deg,#10346c,#081a38);border:1px solid #307abf}
+  .panel.detail-active #reset-view-controls{display:none}
+}
+@media(max-width:400px){
+  header{padding:9px 12px}
+  .wheel-label{font-size:14px}
+  .wheel-label.outer{font-size:11px}
+}
+
+.search-dock{width:100%;background:transparent;padding:4px 2px}
+.search-dock input{width:100%}
+#reset-view-controls[hidden]{display:none!important}
+@media(max-width:850px){
+ .layout{display:contents}
+ .search-dock{order:0}
+ .wheel-wrap{order:1}
+ #reset-view-controls{order:2;justify-content:center;padding:4px 0 10px}
+ .panel{order:3}
+ .panel:not(.detail-active){display:none}
+ .panel.detail-active{display:block}
+ .wheel-wrap.detail-hidden{display:none}
+ .search-dock{margin-bottom:3px}
+}
+</style>
+</head>
+<body>
+<header><div><strong>Theory of Zero</strong><small>DibyaRatna SelfEconomy</small></div><span class="desktop-page-label" aria-label="Current page: Interactive Dashboard">Interactive Dashboard</span>
+<button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">☰</button></header>
+<nav id="mobile-menu" class="mobile-menu" aria-label="Website navigation" hidden>
+  <a href="#dashboard" data-menu-action="dashboard">Dashboard</a>
+  <a href="#dashboard" data-menu-action="sectors">Sectors</a>
+  <a href="#dashboard" data-menu-action="tires">Tires</a>
+  <a href="#about" data-menu-action="about">About</a>
+  <div class="menu-heading">Ask AI — external platforms</div>
+  <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">Ask ChatGPT ↗</a>
+  <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">Ask Gemini ↗</a>
+  <p class="menu-note">These links open general AI services. They are not dedicated or verified Theory of Zero assistants.</p>
+</nav>
+<main id="dashboard">
+<section class="intro"><h1>Interactive Framework Dashboard</h1><p>Explore the eight essential sectors and the 12-Tire architecture. Select any segment to view its purpose.</p></section>
+  <p class="keyboard-help">Keyboard navigation: Press Tab to move between sectors and Tires. Press Enter or Space to select a segment. The highlighted outline shows keyboard focus.</p>
+<div class="layout"><section class="wheel-wrap" id="wheel-section" aria-label="Interactive Theory of Zero architecture"><svg id="wheel" class="wheel" viewBox="0 0 760 760" role="group" aria-label="Concentric wheel with eight sectors and twelve Tires"><circle cx="380" cy="380" r="367" fill="#061631" stroke="#4edbff" stroke-width="3"/><g id="outer"></g><g id="inner"></g><circle class="wheel-circle" cx="380" cy="380" r="102"
+  tabindex="0"
+  role="button"
+  aria-label="108 Framework Control Center"
+  style="cursor:pointer"/>
+<defs>
+  <clipPath id="center-logo-clip">
+    <circle cx="380" cy="380" r="100"/>
+  </clipPath>
+</defs>
+<image
+  href="Radiant_108_Circular_Dashboard_v2.png.png"
+  
+x="290"
+y="290"
+width="180"
+height="180"
+preserveAspectRatio="xMidYMid meet"
+
+  clip-path="url(#center-logo-clip)"
+  style="pointer-events:none"
+/>
+</svg><div class="legend"><span><i class="dot" style="background:#3ac8f6"></i>8 essential sectors</span><span><i class="dot" style="background:#bd67f8"></i>12 protocol Tires</span></div></section>
+<aside class="panel" id="details-panel" aria-live="polite"><button id="back-to-wheel" class="back-to-wheel" type="button" hidden>← Back to Wheel</button><div class="eyebrow" id="kind">Framework overview</div><h2 id="name">Select a segment</h2><p id="detail">The inner ring represents eight essential sectors. The outer ring represents 12 protocol Tires, positioned like the hours on a clock, beginning with Tire 1200 at 12 o'clock.</p><p id="relationship-detail" aria-live="polite"></p><p class="note">Development visualization only. No real-time telemetry, resource allocations, or operational validation is implied.</p></aside></div>
+<section id="about" class="mobile-about" hidden><h2>About this dashboard</h2><p>Explore eight essential sectors and twelve proposed protocol Tires. The visualization is a development illustration, not evidence of real-world operational validation.</p></section>
+<p class="footer">Theory of Zero — DibyaRatna SelfEconomy · Development preview</p>
+</main>
+<script>
+const NS='http://www.w3.org/2000/svg',cx=380,cy=380;
+const sectors=[['Food','Essential food production and access'],['Shelter','Essential shelter access'],['Clothes','Essential clothing access'],['Knowledge','Knowledge and learning access'],['Health','Essential health services'],['Transportation','Essential mobility and transit'],['Security','Essential safety and security'],['Energy','Essential energy access']];
+const tires=[['1200','Biophilic medical node and restorative progress telemetry'],['100','Primary operations and physical delivery'],['200','Operational coordination and anti-oscillation'],['300','Operational control and optimization'],['400','Cryptographic watchdog and privacy auditing'],['500','Forward intelligence and forecasting'],['600','Policy and governance'],['700','Inter-Tire messaging and transmission'],['800','Asset Equilibrium Transitioning'],['900','Discretionary contribution engine (STRE)'],['1000','Protocol Tire 1000 — specification to be confirmed'],['1100','Skill-to-Task Routing Engine (STRE)']];
+const colors=['#00a96c','#f7931e','#e52e75','#7240e4','#006cd6','#00a4b7','#f1ae1b','#0879ce'];
+function point(r,a){let t=(a-90)*Math.PI/180;return [cx+r*Math.cos(t),cy+r*Math.sin(t)]}
+function wedge(r1,r2,a,b){let p1=point(r2,a),p2=point(r2,b),p3=point(r1,b),p4=point(r1,a);return `M ${p1} A ${r2} ${r2} 0 0 1 ${p2} L ${p3} A ${r1} ${r1} 0 0 0 ${p4} Z`}
+function el(tag,attrs,text){let e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(text!==undefined)e.textContent=text;return e}
+function add(group,items,r1,r2,start,step,type){
+  let g=document.getElementById(group);
+  items.forEach((item,i)=>{
+    let a=start+i*step,b=a+step,mid=(a+b)/2;
+    let path=el('path',{d:wedge(r1,r2,a,b),fill:type==='Sector'?colors[i]:`hsl(${(i*28+310)%360} 85% 45%)`,class:'slice',tabindex:'0',role:'button','aria-label':`${type} ${item[0]}`});
+    let show=()=>{
+      document.querySelectorAll('.slice').forEach(s=>s.classList.remove('selected'));
+      path.classList.add('selected');
+      document.getElementById('kind').textContent=type;
+      document.getElementById('name').textContent=(type==='Tire'?'Tire ':'')+item[0];
+      document.getElementById('detail').textContent=item[1];
+      if(type==='Tire') highlightTireRelationships(item[0]);
+      else highlightSectorRelationships(item[0]);
+    };
+    path.addEventListener('click',show);
+    path.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show()}});
+    g.appendChild(path);
+    let [x,y]=point((r1+r2)/2,mid);
+    g.appendChild(el('text',{x,y,class:`wheel-label ${type==='Tire'?'outer':''}`},type==='Tire'?'Tire '+item[0]:item[0]));
+  });
+}
+add('inner',sectors,103,247,0,45,'Sector');
+add('outer',tires,250,365,-15,30,'Tire');
+const outer = document.getElementById('outer');
+
+const tirePaths = [...outer.querySelectorAll('.slice')];
+
+const tireOrder = [...tirePaths].sort((a, b) => {
+  const getNumber = path =>
+    Number(path.getAttribute('aria-label').replace('Tire ', ''));
+
+  return getNumber(a) - getNumber(b);
+});
+
+tireOrder.forEach(path => {
+    outer.insertBefore(path, outer.querySelector('text'));
+});  
+  const centerCircle = document.querySelector('.wheel-circle');
+
+function showFrameworkCenter() {
+   showMobileDetails();
+  document.querySelectorAll('.slice').forEach(
+    s => s.classList.remove('selected')
+  );  resetRelationshipStyles();
+
+  document.getElementById('kind').textContent = 'FRAMEWORK CENTER';
+  document.getElementById('name').textContent = '108 — Theory of Zero';
+  document.getElementById('detail').textContent =
+    'Central navigation hub for the eight essential sectors and twelve protocol Tires. Select a sector or Tire to explore its proposed role.';
+
+  const relationshipDetail =
+    document.getElementById('relationship-detail');
+
+  if (relationshipDetail) {
+    relationshipDetail.textContent =
+      'Framework overview only. No real-time telemetry, resource allocation, or operational validation is implied.';
+  }
+}
+
+centerCircle.addEventListener('click', showFrameworkCenter);
+
+centerCircle.addEventListener('keydown', event => {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    showFrameworkCenter();
+  }
+});
+const searchBox = document.createElement('input');
+searchBox.type = 'search';
+searchBox.placeholder = 'Search sectors or Tires...';
+searchBox.setAttribute('aria-label', 'Search sectors or Tires');
+searchBox.style.cssText = 'display:block;width:100%;padding:12px;margin:0 0 16px;border:1px solid #39d8ff;border-radius:10px;background:#081a38;color:white;font-size:16px';
+
+const searchResults = document.createElement('div');
+searchResults.setAttribute('aria-live', 'polite');
+searchResults.style.cssText = 'display:grid;gap:8px;margin-bottom:16px;max-height:300px;overflow-y:auto;overscroll-behavior:contain';
+
+const panel = document.querySelector('.panel');
+const wheelSection = document.getElementById('wheel-section');
+const backToWheel = document.getElementById('back-to-wheel');
+const isMobileLayout = () => window.matchMedia('(max-width:850px)').matches;
+function showMobileDetails() {
+  if (!isMobileLayout()) return;
+  panel.classList.add('detail-active');
+  wheelSection.classList.add('detail-hidden');
+  resetViewControls.hidden = true;
+  backToWheel.hidden = false;
+  panel.scrollIntoView({block:'start',behavior:'instant'});
+}
+function showMobileWheel() {
+  panel.classList.remove('detail-active');
+  wheelSection.classList.remove('detail-hidden');
+  resetViewControls.hidden = false;
+  backToWheel.hidden = true;
+}
+backToWheel.addEventListener('click', () => {
+  showMobileWheel();
+  wheelSection.scrollIntoView({block:'start',behavior:'smooth'});
+});
+const searchDock = document.createElement('div');
+searchDock.className = 'search-dock';
+const originalSearchAnchor = document.createComment('Search dock desktop anchor');
+// Search anchor is inserted after searchBox is mounted in panel.
+function arrangeMobileLayout() {
+  if (isMobileLayout()) {
+    panel.before(searchDock);
+    searchDock.append(searchBox, searchResults);
+    wheelSection.after(resetViewControls);
+  } else {
+    originalSearchAnchor.after(searchBox, searchResults);
+    panel.insertBefore(resetViewControls, panel.querySelector('.eyebrow'));
+    searchDock.remove();
+    showMobileWheel();
+  }
+}
+// Initialization runs after the controls have been created.
+window.addEventListener('resize', arrangeMobileLayout);
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+menuToggle.addEventListener('click', () => {
+  mobileMenu.hidden = !mobileMenu.hidden;
+  menuToggle.setAttribute('aria-expanded', String(!mobileMenu.hidden));
+  menuToggle.setAttribute('aria-label', mobileMenu.hidden ? 'Open navigation menu' : 'Close navigation menu');
+  menuToggle.textContent = mobileMenu.hidden ? '☰' : '✕';
+});
+mobileMenu.querySelectorAll('[data-menu-action]').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileMenu.hidden = true;
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.textContent = '☰';
+    const action = link.dataset.menuAction;
+    if (action === 'about') {
+      const about = document.getElementById('about');
+      about.hidden = false;
+      about.scrollIntoView({block:'start',behavior:'smooth'});
+    } else {
+      showMobileWheel();
+      if (action === 'sectors') document.querySelector('#inner path')?.focus();
+      if (action === 'tires') document.querySelector('#outer path')?.focus();
+    }
+  });
+});
+panel.insertBefore(searchResults, panel.firstChild);
+panel.insertBefore(searchBox, searchResults);
+panel.insertBefore(originalSearchAnchor, searchBox);
+
+// v3.6 — Reset View button.
+const resetViewButton = document.createElement('button');
+resetViewButton.type = 'button';
+resetViewButton.textContent = 'Reset View';
+resetViewButton.style.cssText =
+  'padding:10px 16px;margin-bottom:16px;border:1px solid #39d8ff;border-radius:8px;background:#10346c;color:white;cursor:pointer';
+
+resetViewButton.addEventListener('click', () => {
+  searchBox.value = '';
+  searchResults.replaceChildren();
+  showFrameworkCenter();
+  if (!isMobileLayout()) centerCircle.focus();
+});
+
+const resetViewControls = document.createElement('div');
+resetViewControls.id = 'reset-view-controls';
+resetViewControls.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px';
+resetViewButton.style.margin = '0';
+resetViewControls.appendChild(resetViewButton);
+panel.insertBefore(resetViewControls, searchResults);
+// v3.7 — Clear Selection button.
+const clearSelectionButton = document.createElement('button');
+clearSelectionButton.type = 'button';
+clearSelectionButton.textContent = 'Clear Selection';
+
+clearSelectionButton.style.cssText =
+  'padding:10px 16px;margin:0 0 16px 10px;border:1px solid #39d8ff;border-radius:8px;background:#10346c;color:white;cursor:pointer';
+
+clearSelectionButton.addEventListener('click', () => {
+  document.querySelectorAll('.slice').forEach(path => {
+    path.classList.remove('selected');
+  });
+
+  resetRelationshipStyles();
+ if (!searchBox.value.trim()) showFrameworkCenter();
+});
+
+clearSelectionButton.style.margin = '0';
+resetViewControls.appendChild(clearSelectionButton);
+arrangeMobileLayout();
+searchBox.addEventListener('input', () => {
+  searchResults.replaceChildren();
+  const query = searchBox.value.trim().toLowerCase();
+  if (!query) return;
+
+  const matches = [{
+  label: '108 Framework Control Center',
+  type: 'Center',
+  index: -1
+}, ...sectors.map((item, i) => ({
+    label: item[0], type: 'Sector', index: i
+  })), ...tires.map((item, i) => ({
+    label: 'Tire ' + item[0], type: 'Tire', index: i
+  }))].filter(item => item.label.toLowerCase().includes(query));
+
+matches.sort((a, b) => {
+  const getPriority = item => {
+    const label = item.label.toLowerCase();
+    if (label === query) return 0;
+    if (label.startsWith(query)) return 1;
+    return 2;
+  };
+
+  const priorityDifference = getPriority(a) - getPriority(b);
+  if (priorityDifference !== 0) return priorityDifference;
+
+  if (a.type !== b.type) {
+    const order = { Center: 0, Sector: 1, Tire: 2 };
+    return order[a.type] - order[b.type];
+  }
+
+  if (a.type === 'Tire') {
+    return Number(a.label.replace('Tire ', '')) -
+           Number(b.label.replace('Tire ', ''));
+  }
+
+  return a.index - b.index;
+});
+  matches.forEach(item => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = item.label;
+    button.style.cssText = 'padding:10px;border:1px solid #307abf;border-radius:8px;background:#10346c;color:white;cursor:pointer;text-align:left';
+    button.addEventListener('click', () => {
+      if (item.type === 'Center') {
+  showFrameworkCenter();
+  searchBox.value = '';
+  searchResults.replaceChildren();
+  centerCircle.focus();
+  return;
+}
+  const group = document.getElementById(
+    item.type === 'Sector' ? 'inner' : 'outer'
+  );
+
+  const path = [...group.querySelectorAll('path')].find(
+  p => p.getAttribute('aria-label') ===
+    (item.type === 'Sector' ? 'Sector ' + item.label : item.label)
+);
+
+  if (path) {
+    path.dispatchEvent(new MouseEvent('click'));
+
+    
+
+    // Keep keyboard focus on the selected wheel segment.
+    if (!isMobileLayout()) path.focus();
+  }
+});
+    searchResults.appendChild(button);
+  });
+
+  if (!matches.length) {
+    searchResults.textContent = 'No matching sectors or Tires.';
+  }
+});
+
+
+
+ // Keyboard navigation and selection for search results.
+searchBox.addEventListener('keydown', event => {
+  const buttons = [...searchResults.querySelectorAll('button')];
+  if (!buttons.length) return;
+
+  if (event.key === 'ArrowDown') {
+    event.preventDefault();
+    buttons[0].focus();
+  } else if (event.key === 'ArrowUp') {
+    event.preventDefault();
+    buttons[buttons.length - 1].focus();
+  } else if (event.key === 'Enter') {
+    event.preventDefault();
+    buttons[0].click();
+  }
+});
+
+
+searchResults.addEventListener('keydown', event => {
+  const buttons = [...searchResults.querySelectorAll('button')];
+  const index = buttons.indexOf(document.activeElement);
+  if (index === -1) return;
+
+  if (event.key === 'ArrowDown') {
+    event.preventDefault();
+    buttons[(index + 1) % buttons.length].focus();
+  } else if (event.key === 'ArrowUp') {
+    event.preventDefault();
+    buttons[(index - 1 + buttons.length) % buttons.length].focus();
+  }
+});
+
+// v3.3 — Close search results with Escape.
+function closeSearchResultsOnEscape(event) {
+  if (event.key !== 'Escape') return;
+
+  event.preventDefault();
+  searchResults.replaceChildren();
+  searchBox.focus();
+}
+
+searchBox.addEventListener('keydown', closeSearchResultsOnEscape);
+searchResults.addEventListener('keydown', closeSearchResultsOnEscape);
+
+// Architecture Relationships v2.2
+// Development-only relationship definitions.
+// These do not represent verified operational connections.
+const architectureRelationships = {
+  "100": ["200", "300"],
+  "200": ["100", "300"],
+  "300": ["100", "200", "400"],
+  "400": ["300", "600"],
+  "500": ["300", "600"],
+  "600": ["400", "500", "700"],
+  "700": ["600", "800", "900"],
+  "800": ["700", "900"],
+  "900": ["700", "800"],
+  "1000": [],
+  "1100": [],
+  "1200": []
+};
+
+  
+// v2.4 — Proposed visualization associations, NOT verified operational dependencies.
+// Tire 1000 intentionally has no sector association: specification unconfirmed.
+const sectorTireRelationships = {
+  Food: ['100','200','300','500'],
+  Shelter: ['100','200','300','800'],
+  Clothes: ['100','200','300','900'],
+  Knowledge: ['500','700','900','1100'],
+  Health: ['100','300','500','1200'],
+  Transportation: ['100','200','300','500'],
+  Security: ['300','400','600','700'],
+  Energy: ['100','200','300','500']
+};
+function resetRelationshipStyles(){
+  document.querySelectorAll('.slice').forEach(path=>{
+    path.style.opacity='';
+    path.style.strokeWidth='';
+  });
+}
+function highlightSectorRelationships(sectorName){
+  resetRelationshipStyles();
+document.querySelectorAll('#inner path').forEach((path, index) => {
+  const selected = sectors[index][0] === sectorName;
+  path.style.opacity = selected ? '1' : '0.12';
+  if (selected) path.style.strokeWidth = '5';
+});
+
+  const related=sectorTireRelationships[sectorName]||[];
+  document.querySelectorAll('#outer path').forEach(path => {
+  const tireId = path.getAttribute('aria-label')
+    .replace('Tire ', '').trim();
+
+  const connected = related.includes(tireId);
+
+  path.style.opacity = connected ? '1' : '0.12';
+
+  if (connected) {
+    path.style.strokeWidth = '3';
+  }
+});
+  const explanation = document.getElementById('relationship-detail');
+  if (explanation) {
+    explanation.textContent =
+      'Proposed visualization associations for ' + sectorName +
+      ': Tire ' + related.join(', Tire ') +
+      '. These associations are illustrative, not verified operational dependencies.';
+  }}
+// Preserve v2.3 Tire-to-Tire visualization, while clearing prior sector styles.
+function highlightTireRelationships(tireNumber){
+  resetRelationshipStyles();
+  const related=architectureRelationships[String(tireNumber)]||[];
+  document.querySelectorAll('#outer path').forEach((path,index)=>{
+    const tireId = path.getAttribute('aria-label').replace('Tire ', '').trim();
+    const selected=tireId===String(tireNumber);
+    const connected=related.includes(tireId);
+    path.style.opacity=selected||connected?'1':'0.12';
+    if(selected||connected) path.style.strokeWidth=selected?'5':'3';
+  });
+
+  // Highlight sectors associated with the selected Tire.
+  const selectedTire = String(tireNumber);
+  document.querySelectorAll('#inner path').forEach((path, index) => {
+    const sectorName = sectors[index][0];
+    const connected = (sectorTireRelationships[sectorName] || [])
+      .includes(selectedTire);
+
+    path.style.opacity = connected ? '1' : '0.12';
+    if (connected) path.style.strokeWidth = '3';
+  });
+
+  const associatedSectors = Object.keys(sectorTireRelationships)
+    .filter(sector => sectorTireRelationships[sector].includes(selectedTire));
+
+  const explanation = document.getElementById('relationship-detail');
+  if (explanation) {
+    explanation.textContent =
+      'Proposed visualization associations for Tire ' + selectedTire +
+      '. Related Tires: ' + (related.length ? related.map(t => 'Tire ' + t).join(', ') : 'None specified') +
+      '. Associated sectors: ' + (associatedSectors.length ? associatedSectors.join(', ') : 'None specified') +
+      '. These associations are illustrative, not verified operational dependencies.';
+  }
+}
+</script>
+</body>
+</html>
