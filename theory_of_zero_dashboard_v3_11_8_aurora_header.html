@@ -641,6 +641,12 @@ function add(group,items,r1,r2,start,step,type){
 }
 add('inner',sectors,103,247,0,45,'Sector');
 add('outer',tires,250,365,-15,30,'Tire');
+// Keyboard order: Tire 100 through Tire 1200, without rotating/repainting slices.
+// Each Tire is emitted as four siblings: path, decorative icon, mobile label,
+// desktop label. Move the initial Tire 1200 block to the end of the SVG group.
+const outerWheel = document.getElementById('outer');
+const firstTireBlock = Array.from(outerWheel.children).slice(0,4);
+firstTireBlock.forEach(node => outerWheel.appendChild(node));
   const centerCircle = document.querySelector('.wheel-circle');
 
 function showFrameworkCenter() {
