@@ -697,6 +697,30 @@ main{max-width:1380px;margin:auto;padding:24px 18px 55px}.intro{text-align:cente
   }
 }
 
+
+/* Mobile balance patch v5.1 — visually balanced details on iOS and Android.
+   The approved desktop CSS, SVG geometry and navigation JavaScript are unchanged.
+   Replaces the earlier single automatic top margin on the relationship note. */
+@media (max-width:850px) {
+  main#dashboard .panel.detail-active #detail {
+    margin-top:auto !important;
+    margin-bottom:auto !important;
+    padding:0;
+  }
+  main#dashboard .panel.detail-active #relationship-detail {
+    margin:0 !important;
+    padding-top:12px;
+    border-top:1px solid rgba(72,171,230,.45);
+  }
+  main#dashboard .panel.detail-active #relationship-detail:empty {display:none;}
+  main#dashboard .panel.detail-active {
+    -webkit-text-size-adjust:100%; text-size-adjust:100%;
+  }
+}
+@media(max-width:350px) {
+  body > header .home-control strong {font-size:16px;}
+  body > header .home-control small {font-size:11px;}
+}
 </style>
 </head>
 <body>
