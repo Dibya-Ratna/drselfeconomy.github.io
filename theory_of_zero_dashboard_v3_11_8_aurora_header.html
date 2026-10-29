@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Theory of Zero | Desktop Wallpaper Preview v3.11.6</title>
+<title>Theory of Zero — DibyaRatna SelfEconomy</title>
 <style>
 :root{color-scheme:dark;--bg:#06132e;--panel:#0b2146;--line:#2b77bd;--cyan:#39d8ff;--text:#eef7ff}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 15%,#153e83,var(--bg) 65%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
@@ -514,6 +514,99 @@ main{max-width:1380px;margin:auto;padding:24px 18px 55px}.intro{text-align:cente
     border-bottom:1px solid #2c86a6;
   }
 }
+
+/* v3.11.8-mobile-parity — stabilize iOS Safari / Android Chrome phone layout.
+   Scoped strictly to mobile to preserve the approved desktop composition and SVG artwork. */
+@media (max-width:850px) {
+  html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+  :root { --mobile-header-height:68px; --mobile-search-height:65px; }
+  body { width:100%; max-width:100%; overflow-x:clip; }
+
+  body > header {
+    height:var(--mobile-header-height);
+    min-height:var(--mobile-header-height);
+    padding:8px max(14px, env(safe-area-inset-right, 0px)) 8px max(14px, env(safe-area-inset-left, 0px));
+    gap:12px;
+  }
+  body > header .home-control { flex:1 1 auto; min-width:0; gap:3px; }
+  body > header .home-control strong {
+    font-size:18px; line-height:1.2; font-weight:700;
+  }
+  body > header .home-control small {
+    font-size:13px; line-height:1.2; margin:0;
+  }
+  body > header .menu-toggle {
+    display:grid; place-items:center; flex:0 0 46px;
+    width:46px; height:46px; min-width:46px; min-height:46px;
+    padding:0; font:400 26px/1 Arial,sans-serif; border-radius:12px;
+    -webkit-appearance:none; appearance:none;
+  }
+  body > header .back-to-wheel:not([hidden]) {
+    height:44px; min-height:44px; padding:0 9px;
+    font:500 13px/1.15 system-ui,-apple-system,Segoe UI,sans-serif;
+  }
+  .mobile-menu:not([hidden]) {
+    top:var(--mobile-header-height);
+    max-height:calc(100dvh - var(--mobile-header-height));
+  }
+
+  main#dashboard { width:100%; padding:0 8px 18px; }
+  main#dashboard .layout { gap:0; }
+  main#dashboard .search-dock {
+    position:sticky; top:var(--mobile-header-height);
+    z-index:48; width:100%;
+    min-height:var(--mobile-search-height);
+    margin:0 0 6px; padding:8px;
+    background:#0b2550; border-bottom:1px solid #307abf;
+  }
+  main#dashboard .search-dock input[type="search"] {
+    display:block; width:100%; height:48px; min-height:48px;
+    box-sizing:border-box;
+    margin:0!important; padding:0 14px!important;
+    border-radius:12px!important;
+    font:400 16px/normal system-ui,-apple-system,Segoe UI,sans-serif!important;
+    -webkit-appearance:none; appearance:none;
+  }
+  main#dashboard .search-dock [aria-live]:empty {
+    display:none!important; margin:0!important; padding:0!important;
+  }
+  main#dashboard .wheel-wrap {
+    display:block; width:100%; min-width:0; max-width:100%;
+    padding:2px; margin:0; border-radius:18px;
+    aspect-ratio:1/1;
+    overflow:hidden;
+  }
+  main#dashboard .wheel-wrap.detail-hidden { display:none!important; }
+  main#dashboard .wheel-wrap svg.wheel {
+    display:block; width:100%; max-width:100%; height:auto;
+    aspect-ratio:1/1; margin:0 auto;
+  }
+  main#dashboard #reset-view-controls {
+    display:grid!important; grid-template-columns:repeat(3,minmax(0,1fr));
+    align-items:stretch; justify-content:stretch;
+    box-sizing:border-box; width:100%;
+    min-height:54px; height:54px;
+    padding:6px 8px 0!important;
+    margin:0!important; gap:8px!important;
+  }
+  main#dashboard #reset-view-controls[hidden] { display:none!important; }
+  main#dashboard #reset-view-controls > .ai-action,
+  main#dashboard #reset-view-controls > button,
+  main#dashboard #reset-view-controls > button:nth-child(2) {
+    display:flex; align-items:center; justify-content:center;
+    box-sizing:border-box; min-width:0; width:100%;
+    height:48px; min-height:48px; margin:0!important;
+    padding:0 4px!important; border-radius:10px;
+    font:500 clamp(12px,3.5vw,15px)/1.15 system-ui,-apple-system,Segoe UI,sans-serif!important;
+    white-space:nowrap; text-align:center;
+    -webkit-appearance:none; appearance:none;
+  }
+  main#dashboard .panel.detail-active {
+    scroll-margin-top:calc(var(--mobile-header-height) + var(--mobile-search-height) + 8px);
+  }
+  #public-info { scroll-margin-top:calc(var(--mobile-header-height) + var(--mobile-search-height) + 8px); }
+}
+
 </style>
 </head>
 <body>
