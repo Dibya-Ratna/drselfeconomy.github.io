@@ -607,6 +607,54 @@ main{max-width:1380px;margin:auto;padding:24px 18px 55px}.intro{text-align:cente
   #public-info { scroll-margin-top:calc(var(--mobile-header-height) + var(--mobile-search-height) + 8px); }
 }
 
+
+
+/* v3.11.8 mobile fill fix — stretch the visible dashboard workspace vertically on phones. */
+@media (max-width:850px){
+  html,body{min-height:100svh;}
+  body{min-height:100svh;display:flex;flex-direction:column;}
+  main#dashboard{
+    flex:1 1 auto;
+    width:100%;
+    min-height:calc(100svh - var(--mobile-header-height,70px) - env(safe-area-inset-bottom,0px));
+    display:flex;
+    flex-direction:column;
+    padding-bottom:calc(16px + env(safe-area-inset-bottom,0px)) !important;
+    box-sizing:border-box;
+  }
+  main#dashboard .layout{
+    flex:1 1 auto;
+    min-height:calc(100svh - var(--mobile-header-height,70px) - var(--mobile-search-height,58px) - 28px - env(safe-area-inset-bottom,0px));
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+  }
+  main#dashboard .wheel-wrap,
+  main#dashboard .panel.detail-active{
+    flex:1 1 auto;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  main#dashboard .panel.detail-active{
+    min-height:calc(100svh - var(--mobile-header-height,70px) - var(--mobile-search-height,58px) - 34px - env(safe-area-inset-bottom,0px));
+  }
+  main#dashboard .panel.detail-active .note{margin-top:auto;}
+  main#dashboard .wheel-wrap{
+    min-height:calc(100svh - var(--mobile-header-height,70px) - var(--mobile-search-height,58px) - 34px - env(safe-area-inset-bottom,0px));
+    padding-bottom:10px;
+  }
+  main#dashboard .wheel{
+    width:min(100%,calc(100svh - 240px),760px);
+    max-width:100%;
+    margin:0 auto;
+    flex:1 1 auto;
+  }
+  main#dashboard #reset-view-controls{
+    margin-top:auto !important;
+  }
+}
+
 </style>
 </head>
 <body>
